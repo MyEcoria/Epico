@@ -1,0 +1,118 @@
+{"level":"error","message":"Création de compte : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-11 23:41:51.692692"}
+{"level":"error","message":"Création de compte : Unknown column 'song_id' in 'field list'","service":"NanBet","timestamp":"2025-02-11 23:42:50.892892"}
+{"level":"error","message":"Erreur lors de la création de la musique : Unknown column 'song_id' in 'field list'","service":"NanBet","timestamp":"2025-02-11 23:43:37.976976"}
+{"level":"info","message":"L'adresse  vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-11 23:44:18.641641"}
+{"level":"info","message":"L'adresse Worth It vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 00:15:24.554554"}
+{"level":"info","message":"L'adresse Worth It vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 00:19:06.043043"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-12 00:21:52.948948"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-12 00:23:20.094094"}
+{"level":"info","message":"L'adresse Worth It vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 00:24:06.499499"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '389180781' for key 'musics.song_id_unique'","service":"NanBet","timestamp":"2025-02-12 00:24:48.124124"}
+{"level":"info","message":"L'adresse Worth It vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 00:28:59.182182"}
+{"level":"info","message":"L'adresse Harder, Better, Faster, Stronger vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 00:37:07.077077"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '3135556' for key 'musics.song_id_unique'","service":"NanBet","timestamp":"2025-02-12 00:37:13.256256"}
+{"level":"info","message":"L'adresse Harder, Better, Faster, Stronger vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 00:39:11.463463"}
+{"level":"info","message":"L'adresse Crescendolls vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 00:39:18.619619"}
+{"level":"info","message":"L'adresse Crescendolls vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 00:40:48.592592"}
+{"level":"info","message":"L'adresse Blinding Lights The Weeknd vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 00:42:26.001001"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:09.320320"}
+{"level":"info","message":"L'adresse Blinding lights The weeknd piano vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:11.431431"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:14.088088"}
+{"level":"info","message":"L'adresse Blinding lights The Weeknd (Piano arrangement) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:15.018018"}
+{"level":"info","message":"L'adresse April vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:15.601601"}
+{"level":"info","message":"L'adresse Blinding Lights (Techno) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:19.646646"}
+{"level":"info","message":"L'adresse Blinding Lights The Weeknd vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:21.298298"}
+{"level":"info","message":"L'adresse Blinding Lights (Made Famous by the Weeknd) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:21.370370"}
+{"level":"info","message":"L'adresse Under the Tallest Tree vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:22.987987"}
+{"level":"info","message":"L'adresse The Bird Song vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:23.975975"}
+{"level":"info","message":"L'adresse Blue Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:24.131131"}
+{"level":"info","message":"L'adresse Liberty vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:24.983983"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 13:26:25.722722"}
+{"level":"info","message":"L'adresse Blinding lights The weeknd piano vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:18.615615"}
+{"level":"info","message":"L'adresse Blinding lights The Weeknd (Piano arrangement) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:22.667667"}
+{"level":"info","message":"L'adresse Blinding Lights (Techno) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:24.432432"}
+{"level":"info","message":"L'adresse The Bird Song vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:24.436436"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:25.357357"}
+{"level":"info","message":"L'adresse Blinding Lights The Weeknd vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:25.474474"}
+{"level":"info","message":"L'adresse Under the Tallest Tree vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:27.878878"}
+{"level":"info","message":"L'adresse Blinding Lights (Made Famous by the Weeknd) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:27.891891"}
+{"level":"info","message":"L'adresse Blinding Lights The Weeknd vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:29.094094"}
+{"level":"info","message":"L'adresse Liberty vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:31.994994"}
+{"level":"info","message":"L'adresse April vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:34.349349"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:34.395395"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:35.649649"}
+{"level":"info","message":"L'adresse Blue Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:08:35.653653"}
+{"level":"info","message":"L'adresse J'suis pas dupe vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:19:39.633633"}
+{"level":"info","message":"L'adresse Je suis las vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:19:41.398398"}
+{"level":"info","message":"L'adresse Caca boudin 1/2 vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:55:55.786786"}
+{"level":"info","message":"L'adresse Caca vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:55:56.058058"}
+{"level":"info","message":"L'adresse Caca vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:55:56.209209"}
+{"level":"info","message":"L'adresse casa vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:55:59.693693"}
+{"level":"info","message":"L'adresse Caca boudin 2/2 vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:56:00.726726"}
+{"level":"info","message":"L'adresse Casa vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:56:00.727727"}
+{"level":"info","message":"L'adresse Ça va vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:56:01.644644"}
+{"level":"info","message":"L'adresse Caca boudin vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:56:04.707707"}
+{"level":"info","message":"L'adresse Caca Staner vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:56:08.392392"}
+{"level":"info","message":"L'adresse Caca boudin vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:56:08.536536"}
+{"level":"info","message":"L'adresse Ca va vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:56:08.542542"}
+{"level":"info","message":"L'adresse Caca vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:56:10.171171"}
+{"level":"info","message":"L'adresse Caça E Caçador vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:56:11.318318"}
+{"level":"info","message":"L'adresse Caça vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 14:56:12.022022"}
+{"level":"info","message":"L'adresse Blue Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:38.555555"}
+{"level":"info","message":"L'adresse Blue Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:47.142142"}
+{"level":"info","message":"L'adresse Blue Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:47.155155"}
+{"level":"info","message":"L'adresse Blue Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:47.836836"}
+{"level":"info","message":"L'adresse Blue Light vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:48.986986"}
+{"level":"info","message":"L'adresse Blue Lights (Feat. Dosseh) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:49.958958"}
+{"level":"info","message":"L'adresse Blue Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:52.488488"}
+{"level":"info","message":"L'adresse Blue Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:52.918918"}
+{"level":"info","message":"L'adresse blue lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:55.013013"}
+{"level":"info","message":"L'adresse Blue Night vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:56.937937"}
+{"level":"info","message":"L'adresse Blue Light vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:56.962962"}
+{"level":"info","message":"L'adresse Blue Light vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:15:59.968968"}
+{"level":"info","message":"L'adresse Autumn In New York vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:16:00.456456"}
+{"level":"info","message":"L'adresse Blue Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:16:00.557557"}
+{"level":"info","message":"L'adresse Blue Lights (feat. Marconi Union) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:16:00.564564"}
+{"level":"info","message":"L'adresse The Weekend vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:16:51.973973"}
+{"level":"info","message":"L'adresse Open Hearts vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:16:51.975975"}
+{"level":"info","message":"L'adresse Opening Night vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:16:52.899899"}
+{"level":"info","message":"L'adresse Niagara Falls vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:16:54.058058"}
+{"level":"info","message":"L'adresse São Paulo vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:16:56.362362"}
+{"level":"info","message":"L'adresse Die For You vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:16:56.369369"}
+{"level":"info","message":"L'adresse I Can't Wait To Get There vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:16:59.144144"}
+{"level":"info","message":"L'adresse Cry For Me vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:17:00.691691"}
+{"level":"info","message":"L'adresse The Hills vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:17:04.249249"}
+{"level":"info","message":"L'adresse Save Your Tears vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:17:04.358358"}
+{"level":"info","message":"L'adresse The Weekend vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:17:04.375375"}
+{"level":"info","message":"L'adresse Baptized In Fear vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:17:04.745745"}
+{"level":"info","message":"L'adresse The Weekend vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:17:04.839839"}
+{"level":"info","message":"L'adresse Take Me Back To LA vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:17:04.841841"}
+{"level":"info","message":"L'adresse Hurry Up Tomorrow vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:17:05.506506"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:00.848848"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:02.715715"}
+{"level":"info","message":"L'adresse Blinding Light vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:02.984984"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:06.559559"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:08.274274"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:09.337337"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:09.340340"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:16.844844"}
+{"level":"info","message":"L'adresse Blinding Lights (Tabata) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:17.740740"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:17.960960"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:17.976976"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:18.226226"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:18:19.112112"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 15:59:57.137137"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:46.493493"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:51.181181"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:51.665665"}
+{"level":"info","message":"L'adresse Blinding Lights (Acoustic) (Acoustic) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:52.044044"}
+{"level":"info","message":"L'adresse Blinding Lights (Acoustic) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:52.830830"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:53.770770"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:56.846846"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:57.361361"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:57.700700"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:57.893893"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:57.914914"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:58.381381"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:03:00.659659"}
+{"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:03:00.814814"}

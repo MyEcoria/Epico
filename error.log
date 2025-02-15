@@ -1,0 +1,7 @@
+{"level":"error","message":"Création de compte : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-11 23:41:51.692692"}
+{"level":"error","message":"Création de compte : Unknown column 'song_id' in 'field list'","service":"NanBet","timestamp":"2025-02-11 23:42:50.892892"}
+{"level":"error","message":"Erreur lors de la création de la musique : Unknown column 'song_id' in 'field list'","service":"NanBet","timestamp":"2025-02-11 23:43:37.976976"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-12 00:21:52.948948"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-12 00:23:20.094094"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '389180781' for key 'musics.song_id_unique'","service":"NanBet","timestamp":"2025-02-12 00:24:48.124124"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '3135556' for key 'musics.song_id_unique'","service":"NanBet","timestamp":"2025-02-12 00:37:13.256256"}
