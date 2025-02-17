@@ -8,7 +8,7 @@ import musicRouter from './src/musics.mjs';
 await api.initDeezerApi(config.deezer_key);
 
 try {
-    const user = await global.hello.getUser();
+    const user = await api.getUser();
     console.log('Logged in as ' + user.BLOG_NAME);
 } catch (err) {
     console.error(err.message);

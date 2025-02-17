@@ -1,10 +1,8 @@
 import axios from 'axios';
 import fs from 'fs';
-import * as api from 'd-fi-core';
 import config from '../config/general.json' with { type: "json" };
 import { createMusic, getMusic, existMusic } from './db.mjs';
 
-await api.initDeezerApi(config.deezer_key);
 
 const coverSize = {
     small: '56x56',
