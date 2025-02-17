@@ -116,3 +116,161 @@
 {"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:02:58.381381"}
 {"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:03:00.659659"}
 {"level":"info","message":"L'adresse Blinding Lights vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-12 16:03:00.814814"}
+{"level":"info","message":"L'adresse Infidèle vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:43.163163"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:43.524524"}
+{"level":"info","message":"L'adresse Fallait bien vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:43.603603"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:43.620620"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:44.195195"}
+{"level":"info","message":"L'adresse La p'tite poule grise vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:44.711711"}
+{"level":"info","message":"L'adresse Brouillard vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:45.679679"}
+{"level":"info","message":"L'adresse Parapluie vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:45.734734"}
+{"level":"info","message":"L'adresse Câlin calinou vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:46.200200"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:46.686686"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '1044122832' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:15:48.621621"}
+{"level":"info","message":"L'adresse Incoeurable vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:48.989989"}
+{"level":"info","message":"L'adresse Marionnettes vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:49.030030"}
+{"level":"info","message":"L'adresse À Locminé vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:49.199199"}
+{"level":"info","message":"L'adresse Parapluie vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:52.607607"}
+{"level":"info","message":"L'adresse Dame de pique vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:53.497497"}
+{"level":"info","message":"L'adresse Cyborg vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:53.520520"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '1859260777' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:15:54.389389"}
+{"level":"info","message":"L'adresse Mon petit gars vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:56.504504"}
+{"level":"info","message":"L'adresse Madame vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:56.821821"}
+{"level":"info","message":"L'adresse I Like Me Better vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:57.414414"}
+{"level":"info","message":"L'adresse Julie Verluisant vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:57.609609"}
+{"level":"info","message":"L'adresse Chapitre 5 - La marionnette qui ne savait pas danser vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:57.610610"}
+{"level":"info","message":"L'adresse Fer et velours vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:58.169169"}
+{"level":"info","message":"L'adresse More Than A Woman vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:59.035035"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:15:59.383383"}
+{"level":"info","message":"L'adresse Berceuse de marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:00.230230"}
+{"level":"info","message":"L'adresse Un monde meilleur vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:00.487487"}
+{"level":"info","message":"L'adresse Tombé vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:01.898898"}
+{"level":"info","message":"L'adresse Chapitre 2 - La marionnette qui ne savait pas danser vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:02.353353"}
+{"level":"info","message":"L'adresse Mon vieux vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:03.191191"}
+{"level":"info","message":"L'adresse Qui vivra verra vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:03.217217"}
+{"level":"info","message":"L'adresse Défaite vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:04.335335"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:04.727727"}
+{"level":"info","message":"L'adresse Fais ton nid vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:05.748748"}
+{"level":"info","message":"L'adresse Chapitre 3 - La marionnette qui ne savait pas danser vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:05.824824"}
+{"level":"info","message":"L'adresse Je me suis retrouvé vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:08.329329"}
+{"level":"info","message":"L'adresse Marionette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:08.530530"}
+{"level":"info","message":"L'adresse Berceuse vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:09.686686"}
+{"level":"info","message":"L'adresse Doux ma tendresse vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:09.860860"}
+{"level":"info","message":"L'adresse Chanson de Natacha vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:09.980980"}
+{"level":"info","message":"L'adresse Mytho vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:10.022022"}
+{"level":"info","message":"L'adresse Chapitre 1 - La marionnette qui ne savait pas danser vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:10.668668"}
+{"level":"info","message":"L'adresse A pas de loup vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:11.047047"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '1180147512' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:16:12.262262"}
+{"level":"info","message":"L'adresse Les beaux reflets #2 vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:12.264264"}
+{"level":"info","message":"L'adresse Chapitre 4 - La marionnette qui ne savait pas danser vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:12.334334"}
+{"level":"info","message":"L'adresse Le petit ruisseau vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:12.335335"}
+{"level":"info","message":"L'adresse Sans toi vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:13.433433"}
+{"level":"info","message":"L'adresse Première fois vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:14.531531"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:14.533533"}
+{"level":"info","message":"L'adresse Défaite vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:14.533533"}
+{"level":"info","message":"L'adresse Dors mon enfant vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:16.573573"}
+{"level":"info","message":"L'adresse Les enfants sont des enfoirés vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:16.836836"}
+{"level":"info","message":"L'adresse D'or et d'argent vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:17.837837"}
+{"level":"info","message":"L'adresse C'est le vent vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:17.860860"}
+{"level":"info","message":"L'adresse T'es beau vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:20.575575"}
+{"level":"info","message":"L'adresse Problèmes vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:20.591591"}
+{"level":"info","message":"L'adresse Madame vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:20.605605"}
+{"level":"info","message":"L'adresse Toi mon amour vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:20.605605"}
+{"level":"info","message":"L'adresse Marinette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:21.517517"}
+{"level":"info","message":"L'adresse Marionnette, Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:21.519519"}
+{"level":"info","message":"L'adresse Je me suis retrouvé vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:23.099099"}
+{"level":"info","message":"L'adresse Héroïne vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:23.102102"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:24.550550"}
+{"level":"info","message":"L'adresse Fer et velours vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:26.187187"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:26.190190"}
+{"level":"info","message":"L'adresse Tu n'es plus là vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:26.190190"}
+{"level":"info","message":"L'adresse L'amour à l'aveugle vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:26.190190"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:26.190190"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '971622332' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:16:26.191191"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '3065817371' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:16:26.191191"}
+{"level":"info","message":"L'adresse Les sept anneaux vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:27.734734"}
+{"level":"info","message":"L'adresse Un monde meilleur vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:29.142142"}
+{"level":"info","message":"L'adresse T'es beau vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:30.800800"}
+{"level":"info","message":"L'adresse Vagabond vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:30.803803"}
+{"level":"info","message":"L'adresse Riptide vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:31.768768"}
+{"level":"info","message":"L'adresse Mon vieux vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:33.085085"}
+{"level":"info","message":"L'adresse Petit père vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:33.106106"}
+{"level":"info","message":"L'adresse Emotions indélébiles vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:33.119119"}
+{"level":"info","message":"L'adresse Macho vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:33.119119"}
+{"level":"info","message":"L'adresse L'amour à l'aveugle vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:33.778778"}
+{"level":"info","message":"L'adresse Les enfants sont des enfoirés vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:34.748748"}
+{"level":"info","message":"L'adresse Ainsi font, font, font (Les petites marionnettes) vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:36.248248"}
+{"level":"info","message":"L'adresse Fallait bien vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:37.049049"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:37.136136"}
+{"level":"info","message":"L'adresse Masculine vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:37.152152"}
+{"level":"info","message":"L'adresse Immortel vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:38.450450"}
+{"level":"info","message":"L'adresse Tu n'es plus là vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:38.460460"}
+{"level":"info","message":"L'adresse Je sais pas vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:40.359359"}
+{"level":"info","message":"L'adresse Infidèle vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:40.519519"}
+{"level":"info","message":"L'adresse Dame de Pique vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:40.530530"}
+{"level":"info","message":"L'adresse Sans toi vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:40.570570"}
+{"level":"info","message":"L'adresse Mon petit gars vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:40.610610"}
+{"level":"info","message":"L'adresse M'envoler vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:40.898898"}
+{"level":"info","message":"L'adresse Comme les animaux vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:42.677677"}
+{"level":"info","message":"L'adresse Inaya vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:42.827827"}
+{"level":"info","message":"L'adresse Héroïne vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:42.842842"}
+{"level":"info","message":"L'adresse Pas normal vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:42.927927"}
+{"level":"info","message":"L'adresse Excusez -moi vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:42.945945"}
+{"level":"info","message":"L'adresse Samouraï vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:46.972972"}
+{"level":"info","message":"L'adresse Ne me quitte pas vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:47.117117"}
+{"level":"info","message":"L'adresse Ne me quitte pas vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:47.131131"}
+{"level":"info","message":"L'adresse Mortel vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:47.204204"}
+{"level":"info","message":"L'adresse Incendie vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:47.222222"}
+{"level":"info","message":"L'adresse Mammifère vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:47.471471"}
+{"level":"info","message":"L'adresse Immortel vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:47.492492"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:49.230230"}
+{"level":"info","message":"L'adresse Seventy vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:49.392392"}
+{"level":"info","message":"L'adresse Ainsi font, font, font (Les petites marionnettes) [Version playback instrumental] vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:51.445445"}
+{"level":"info","message":"L'adresse Marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:51.561561"}
+{"level":"info","message":"L'adresse Masculine vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:51.681681"}
+{"level":"info","message":"L'adresse La pomme d'orange vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:51.698698"}
+{"level":"info","message":"L'adresse Imagine vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:53.772772"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '3124631061' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:16:53.855855"}
+{"level":"info","message":"L'adresse Petit Père vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:54.098098"}
+{"level":"info","message":"L'adresse Première fois vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:54.113113"}
+{"level":"info","message":"L'adresse Comme les animaux vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:55.339339"}
+{"level":"info","message":"L'adresse Mortel vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:56.248248"}
+{"level":"info","message":"L'adresse L'amour à la main vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:56.315315"}
+{"level":"info","message":"L'adresse La marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:57.365365"}
+{"level":"info","message":"L'adresse King vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:57.619619"}
+{"level":"info","message":"L'adresse Marionnette misanthrope vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:57.677677"}
+{"level":"info","message":"L'adresse La marionnette vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:59.721721"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '3136424271' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:16:59.749749"}
+{"level":"info","message":"L'adresse La Voix Des Larmes vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:59.831831"}
+{"level":"info","message":"L'adresse Paroles d'amourettes vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:16:59.918918"}
+{"level":"info","message":"L'adresse Les beaux reflets #1 vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:03.020020"}
+{"level":"info","message":"L'adresse À Nantes, À Nantes vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:03.101101"}
+{"level":"info","message":"L'adresse Mortel vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:03.244244"}
+{"level":"info","message":"L'adresse Mon père aussi ma mère vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:04.507507"}
+{"level":"info","message":"L'adresse La Plus Jolie Fille De L'histoire vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:04.698698"}
+{"level":"info","message":"L'adresse Bien Mieux Sans Toi vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:04.715715"}
+{"level":"info","message":"L'adresse Poisson Volant vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:04.744744"}
+{"level":"error","message":"Erreur lors de la création de la musique : Got a packet bigger than 'max_allowed_packet' bytes","service":"NanBet","timestamp":"2025-02-17 13:17:04.802802"}
+{"level":"info","message":"L'adresse Incoeurable vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:04.893893"}
+{"level":"info","message":"L'adresse Veiçi les ânes vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:04.926926"}
+{"level":"info","message":"L'adresse Dors mon gars vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:06.862862"}
+{"level":"info","message":"L'adresse Chambrière vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:07.005005"}
+{"level":"info","message":"L'adresse Ma Part Du Gâteau vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:07.089089"}
+{"level":"info","message":"L'adresse Little drummer girl vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:08.091091"}
+{"level":"info","message":"L'adresse Populaire vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:08.155155"}
+{"level":"info","message":"L'adresse Cyborg - L'amour tout court vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 13:17:09.171171"}
+{"level":"error","message":"Erreur lors de la création de la musique : code is not defined","service":"NanBet","timestamp":"2025-02-17 14:22:46.704704"}
+{"level":"error","message":"Erreur lors de la création de la musique : Unknown column 'code' in 'field list'","service":"NanBet","timestamp":"2025-02-17 14:23:06.445445"}
+{"level":"info","message":"L'adresse pierric.buchez@epitech.eu vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 14:23:23.186186"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry 'pierric.buchez@epitech.eu' for key 'users.email'","service":"NanBet","timestamp":"2025-02-17 14:23:25.127127"}
+{"level":"info","message":"Mot de passe modifié avec succès pour l'utilisateur avec l'adresse email : pierric.buchez@epitech.eu","service":"NanBet","timestamp":"2025-02-17 14:34:25.720720"}
+{"level":"info","message":"L'adresse pierric.buchez@epitech.eu vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 15:06:25.359359"}
+{"level":"error","message":"Erreur lors de la création de la musique : Got a packet bigger than 'max_allowed_packet' bytes","service":"NanBet","timestamp":"2025-02-17 15:08:54.366366"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:09:36.610610"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:16:39.918918"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:18:46.158158"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:20:19.582582"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:20:42.712712"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:21:15.923923"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:21:57.763763"}
+{"level":"info","message":"L'adresse pierric.buchez@epitech.eu vient d'être enregistrée","service":"NanBet","timestamp":"2025-02-17 15:22:39.939939"}

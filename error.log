@@ -5,3 +5,22 @@
 {"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-12 00:23:20.094094"}
 {"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '389180781' for key 'musics.song_id_unique'","service":"NanBet","timestamp":"2025-02-12 00:24:48.124124"}
 {"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '3135556' for key 'musics.song_id_unique'","service":"NanBet","timestamp":"2025-02-12 00:37:13.256256"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '1044122832' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:15:48.621621"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '1859260777' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:15:54.389389"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '1180147512' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:16:12.262262"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '971622332' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:16:26.191191"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '3065817371' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:16:26.191191"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '3124631061' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:16:53.855855"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry '3136424271' for key 'musics.song_id'","service":"NanBet","timestamp":"2025-02-17 13:16:59.749749"}
+{"level":"error","message":"Erreur lors de la création de la musique : Got a packet bigger than 'max_allowed_packet' bytes","service":"NanBet","timestamp":"2025-02-17 13:17:04.802802"}
+{"level":"error","message":"Erreur lors de la création de la musique : code is not defined","service":"NanBet","timestamp":"2025-02-17 14:22:46.704704"}
+{"level":"error","message":"Erreur lors de la création de la musique : Unknown column 'code' in 'field list'","service":"NanBet","timestamp":"2025-02-17 14:23:06.445445"}
+{"level":"error","message":"Erreur lors de la création de la musique : Duplicate entry 'pierric.buchez@epitech.eu' for key 'users.email'","service":"NanBet","timestamp":"2025-02-17 14:23:25.127127"}
+{"level":"error","message":"Erreur lors de la création de la musique : Got a packet bigger than 'max_allowed_packet' bytes","service":"NanBet","timestamp":"2025-02-17 15:08:54.366366"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:09:36.610610"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:16:39.918918"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:18:46.158158"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:20:19.582582"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:20:42.712712"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:21:15.923923"}
+{"level":"error","message":"Erreur lors de la création de la musique : Bind parameters must not contain undefined. To pass SQL NULL specify JS null","service":"NanBet","timestamp":"2025-02-17 15:21:57.763763"}

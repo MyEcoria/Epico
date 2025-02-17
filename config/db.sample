@@ -1,7 +1,7 @@
 {
     "host": "localhost",
     "user": "myecoria",
-    "password": "Antoine@01.",
-    "database": "deezar",
+    "password": "cacalandPassword@01.",
+    "database": "deezer",
     "port": 3306
 }
