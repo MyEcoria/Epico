@@ -3,3 +3,6 @@ config/*.json
 *.log
 package-lock.json
 dist
+deezar-linux
+deezar-macos
+deezar-win.exe
