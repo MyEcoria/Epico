@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
-import config from '../config/smtp.json' assert { type: 'json' };
-import general from '../config/general.json' assert { type: 'json' };
+import config from '../config/smtp.json';
+import general from '../config/general.json';
 
 const transporter = nodemailer.createTransport({
     host: config.host,
@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
     }
 });
 
-export default async function sendMail(to, subject, text) {
+export default async function sendMail(to: string, subject: string, text: string) {
     const mailOptions = {
             from: config.from,
             to: to,
@@ -37,7 +37,7 @@ export default async function sendMail(to, subject, text) {
             `
     };
     
-    transporter.sendMail(mailOptions, function(error, info) {
+    transporter.sendMail(mailOptions, function(error: any, info: any) {
             if (error) {
                     console.error('Erreur lors de l\'envoi de l\'e-mail:', error);
             } else {

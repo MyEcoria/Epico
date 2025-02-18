@@ -1,7 +1,7 @@
 import mysql from 'mysql2/promise';
-import config from '../config/db.json' with { type: 'json' };
+import config from '../config/db.json';
 import Decimal from 'decimal.js';
-import { logger } from './logger.mjs';
+import { logger } from './logger';
 
 const dbConfig = {
   host: config.host,
@@ -13,7 +13,17 @@ const dbConfig = {
 
 const pool = mysql.createPool(dbConfig);
 
-export async function createMusic(song_id, title, auteur, album, genre, dure, date, song, cover) {
+export async function createMusic(
+  song_id: string,
+  title: string,
+  auteur: string,
+  album: string,
+  genre: string,
+  dure: string,
+  date: string,
+  song: any,
+  cover: string
+) {
     const connection = await pool.getConnection();
     try {
       const sql = 'INSERT INTO musics (song_id, title, auteur, album, genre, dure, date, song, cover) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
@@ -21,42 +31,42 @@ export async function createMusic(song_id, title, auteur, album, genre, dure, da
       logger.log({ level: 'info', message: `L'adresse ${title} vient d'être enregistrée` });
       return true;
     } catch (error) {
-      logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${error.message}` });
+      logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${(error as any).message}` });
       return false;
     } finally {
       connection.release();
     }
   }
 
-export async function getMusic(song_id) {
+export async function getMusic(song_id: string) {
     const connection = await pool.getConnection();
     try {
       const sql = 'SELECT * FROM musics';
-      const [result] = await connection.execute(sql, [song_id]);
+      const [result]: any = await connection.execute(sql, [song_id]);
       return result[0];
     } catch (error) {
-      logger.log({ level: 'error', message: `Récupération de la musique : ${error.message}` });
+      logger.log({ level: 'error', message: `Récupération de la musique : ${(error as any).message}` });
       return false;
     } finally {
       connection.release();
     }
 }
 
-export async function existMusic(song_id) {
+export async function existMusic(song_id: string) {
   const connection = await pool.getConnection();
   try {
     const sql = 'SELECT COUNT(*) AS count FROM musics WHERE song_id = ?';
-    const [result] = await connection.execute(sql, [song_id]);
+    const [result]: any = await connection.execute(sql, [song_id]);
     return result[0].count > 0;
   } catch (error) {
-    logger.log({ level: 'error', message: `Vérification de la musique : ${error.message}` });
+    logger.log({ level: 'error', message: `Vérification de la musique : ${(error as any).message}` });
     return false;
   } finally {
     connection.release();
   }
 }
 
-export async function createUser(email, password, uuid) {
+export async function createUser(email: string, password: string, uuid: string) {
   const connection = await pool.getConnection();
   try {
     const date = new Date().toISOString();
@@ -65,48 +75,48 @@ export async function createUser(email, password, uuid) {
     logger.log({ level: 'info', message: `L'adresse ${email} vient d'être enregistrée` });
     return true;
   } catch (error) {
-    logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${error.message}` });
+    logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${(error as any).message}` });
     return false;
   } finally {
     connection.release();
   }
 }
 
-export async function changeToVerif(email) {
+export async function changeToVerif(email: string) {
   const connection = await pool.getConnection();
   try {
     const updateSQL = `UPDATE users SET verif = ? WHERE email = ?`;
-    const [result] = await connection.execute(updateSQL, ["Y", email]);
+    const [result]: any = await connection.execute(updateSQL, ["Y", email]);
 
-    if (result.affectedRows > 0) {
+    if (result && result.affectedRows > 0) {
       logger.log({ level: 'info', message: `Mot de passe modifié avec succès pour l'utilisateur avec l'adresse email : ${email}` });
     } else {
       logger.log({ level: 'info', message: `Aucun utilisateur trouvé avec l'adresse email : ${email}` });
     }
     return true;
   } catch (error) {
-    logger.log({ level: 'error', message: `Erreur lors du changement de mot de passe : ${error.message}` });
+    logger.log({ level: 'error', message: `Erreur lors du changement de mot de passe : ${(error as any).message}` });
     return false;
   } finally {
     connection.release();
   }
 }
 
-export async function getUserByCode(code) {
+export async function getUserByCode(code: string) {
   const connection = await pool.getConnection();
   try {
     const sql = 'SELECT * FROM users WHERE code = ?';
-    const [result] = await connection.execute(sql, [code]);
+    const [result]: any = await connection.execute(sql, [code]);
     return result[0].email;
   } catch (error) {
-    logger.log({ level: 'error', message: `Récupération de l'utilisateur : ${error.message}` });
+    logger.log({ level: 'error', message: `Récupération de l'utilisateur : ${(error as any).message}` });
     return false;
   } finally {
     connection.release();
   }
 }
 
-export async function add_listen_history(email, song_id) {
+export async function add_listen_history(email: string, song_id: string) {
   const connection = await pool.getConnection();
   try {
     const date = new Date().toISOString();
@@ -115,14 +125,14 @@ export async function add_listen_history(email, song_id) {
     logger.log({ level: 'info', message: `L'adresse ${email} vient d'être enregistrée` });
     return true;
   } catch (error) {
-    logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${error.message}` });
+    logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${(error as any).message}` });
     return false;
   } finally {
     connection.release();
   }
 }
 
-export async function add_cookie(email, uuid) {
+export async function add_cookie(email: string, uuid: string) {
   const connection = await pool.getConnection();
   try {
     const date = new Date().toISOString();
@@ -131,31 +141,31 @@ export async function add_cookie(email, uuid) {
     logger.log({ level: 'info', message: `L'adresse ${email} vient d'être enregistrée` });
     return true;
   } catch (error) {
-    logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${error.message}` });
+    logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${(error as any).message}` });
     return false;
   } finally {
     connection.release();
   }
 }
 
-export async function get_cookie(uuid) {
+export async function get_cookie(uuid: string) {
   const connection = await pool.getConnection();
   try {
     const sql = 'SELECT * FROM users_token WHERE cookie = ?';
-    const [result] = await connection.execute(sql, [uuid]);
+    const [result]: any = await connection.execute(sql, [uuid]);
     return result[0].email;
   } catch (error) {
-    logger.log({ level: 'error', message: `Récupération de l'utilisateur : ${error.message}` });
+    logger.log({ level: 'error', message: `Récupération de l'utilisateur : ${(error as any).message}` });
     return false;
   }
 }
 
-export async function checkPassword(email, password) {
+export async function checkPassword(email: string, password: string) {
   const connection = await pool.getConnection();
   try {
     const sql = 'SELECT * FROM users WHERE email = ?';
-    const [rows] = await connection.execute(sql, [email]);
-    if (rows.length) {
+    const [rows]: any = await connection.execute(sql, [email]);
+    if (rows && rows.length) {
       if (rows[0].password == password) {
         return true;
       } else {
@@ -163,7 +173,7 @@ export async function checkPassword(email, password) {
       }
     }
   } catch (error) {
-    logger.log({ level: 'error', message: `Erreur lors de la vérification du mot de passe : ${error.message}` });
+    logger.log({ level: 'error', message: `Erreur lors de la vérification du mot de passe : ${(error as any).message}` });
     return false;
   } finally {
     connection.release();

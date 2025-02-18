@@ -1,14 +1,14 @@
 import express from 'express';
-import { createUser, getUserByCode, changeToVerif, checkPassword, add_cookie } from '../modules/db.mjs';
-import sendMail from '../modules/mail.mjs';
+import { createUser, getUserByCode, changeToVerif, checkPassword, add_cookie } from '../modules/db';
+import sendMail from '../modules/mail';
 import { sha256 } from 'js-sha256';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from 'express';
-import config from '../config/general.json' with { type: "json" };
+import config from '../config/general.json';
 
-import registerMiddleware from './middleware/register.mjs';
-import loginMiddleware from './middleware/login.mjs';
-import comfirmMiddleware from './middleware/confirm.mjs';
+import registerMiddleware from './middleware/register';
+import loginMiddleware from './middleware/login';
+import comfirmMiddleware from './middleware/confirm';
 
 const router = Router();
 
@@ -32,7 +32,7 @@ router.post('/login', loginMiddleware, async (req, res) => {
     const hash = sha256(password);
     const uuid = uuidv4();
 
-    if (checkPassword(email, hash)) {
+    if (await checkPassword(email, hash)) {
         add_cookie(email, uuid);
         res.json({status: "ok", email: email, cookie: uuid});
     } else {
@@ -52,7 +52,7 @@ router.get('/confirm/:id', comfirmMiddleware, async (req, res) => {
             res.json({status: "error", email: email});
         }
     } else {
-        res.json({status: "error", email: email});
+        res.json({status: "error"});
     }
 });
 

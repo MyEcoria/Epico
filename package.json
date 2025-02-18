@@ -14,10 +14,15 @@
   "name": "deezar",
   "version": "1.0.0",
   "main": "index.mjs",
+  "bin": {
+    "deezar": "dist/index.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_OPTIONS=--openssl-legacy-provider node index.mjs",
-    "clean": "rm -rf node_modules && rm -rf package-lock.json && rm -f *.log"
+    "clean": "rm -rf node_modules && rm -rf package-lock.json && rm -f *.log && rm -rf dist && rm -f deezar-linux && rm -f deezar-macos && rm -f deezar-win.exe && rm -f deezar-macos",
+    "build": "npx tsc",
+    "pkg": "pkg ."
   },
   "author": "Pierric Buchez",
   "license": "MIT",
@@ -26,6 +31,10 @@
     "@babel/cli": "^7.26.4",
     "@babel/core": "^7.26.9",
     "@babel/preset-env": "^7.26.9",
-    "babel-plugin-module-resolver": "^5.0.2"
+    "@types/express": "^5.0.0",
+    "@types/nodemailer": "^6.4.17",
+    "@types/sqlstring": "^2.3.2",
+    "babel-plugin-module-resolver": "^5.0.2",
+    "typescript": "^5.7.3"
   }
 }

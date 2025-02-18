@@ -1,7 +1,7 @@
 import axios from 'axios';
 import fs from 'fs';
-import config from '../config/general.json' with { type: "json" };
-import { createMusic, getMusic, existMusic } from './db.mjs';
+import config from '../config/general.json';
+import { createMusic, getMusic, existMusic } from './db';
 
 
 const coverSize = {
@@ -11,11 +11,11 @@ const coverSize = {
     xl: '1000x1000'
 };
 
-const getCoverUrl = (albumPicture, size = 'medium') => {
-    return `https://cdn-images.dzcdn.net/images/cover/${albumPicture}/${coverSize[size]}.jpg`;
+const getCoverUrl = (albumPicture: any, size = 'medium') => {
+    return `https://cdn-images.dzcdn.net/images/cover/${albumPicture}/${(coverSize as any)[size]}.jpg`;
 }
 
-function isrcToTimestamp(isrcCode) {
+function isrcToTimestamp(isrcCode: any) {
     if (isrcCode.length !== 12) {
         throw new Error("Code ISRC invalide");
     }
@@ -25,7 +25,7 @@ function isrcToTimestamp(isrcCode) {
     return date.getTime();
 }
 
-export async function add_music(api, song_id) {
+export async function add_music(api: any, song_id: any) {
     if (await existMusic(song_id)) {
         console.log("Music already exists");
         return;
@@ -40,10 +40,10 @@ export async function add_music(api, song_id) {
     const {data} = await axios.get(trackData.trackUrl, {responseType: 'arraybuffer'});
     const outFile = trackData.isEncrypted ? api.decryptDownload(data, track.SNG_ID) : data;
     const trackWithMetadata = await api.addTrackTags(outFile, track, 500);
-    createMusic(track.SNG_ID, track.SNG_TITLE, track.ART_NAME, track.ALB_TITLE, "", track.DURATION, isrcToTimestamp(track.ISRC), trackWithMetadata, getCoverUrl(track.ALB_PICTURE, 'medium'));
+    createMusic(track.SNG_ID, track.SNG_TITLE, track.ART_NAME, track.ALB_TITLE, "", track.DURATION, isrcToTimestamp(track.ISRC).toString(), trackWithMetadata, getCoverUrl(track.ALB_PICTURE, 'medium'));
 }
 
-export async function search_and_download(api, query) {
+export async function search_and_download(api: any, query: any) {
     const search = await api.searchMusic(query);
     for (let i = 0; i < search.TRACK.data.length; i++) {
         const song_id = search.TRACK.data[i].SNG_ID;
@@ -56,7 +56,7 @@ export async function search_and_download(api, query) {
     return search;
 }
 
-export async function download_album(api, album_id) {
+export async function download_album(api: any, album_id: any) {
     const album = await api.getAlbumTracks(album_id);
     for (let i = 0; i < album.data.length; i++) {
         const song_id = album.data[i].SNG_ID;

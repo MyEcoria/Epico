@@ -1,17 +1,19 @@
 import express from 'express';
-import { getMusic, get_cookie, add_listen_history } from '../modules/db.mjs';
-import { search_and_download } from '../modules/deezer.mjs';
+import { getMusic, get_cookie, add_listen_history } from '../modules/db';
+import { search_and_download } from '../modules/deezer';
 import { Router } from 'express';
-import api from 'd-fi-core';
-import config from '../config/general.json' with { type: "json" };
+import * as api from 'd-fi-core';
+import config from '../config/general.json';
 import sqlstring from 'sqlstring';
 
-import musicIdMiddleware from './middleware/music_id.mjs';
+import musicIdMiddleware from './middleware/music_id';
 
 const router = Router();
 router.use(express.json());
 
-await api.initDeezerApi(config.deezer_key);
+(async () => {
+    await api.initDeezerApi(config.deezer_key);
+})();
 
 router.post('/search', async (req, res) => {
     const { name } = req.body;
@@ -21,7 +23,7 @@ router.post('/search', async (req, res) => {
 router.get('/:id', musicIdMiddleware, async (req, res) => {
     const cookie = req.headers.cookie;
     const { id } = req.params;
-    const cookie_info = await get_cookie(cookie);
+    const cookie_info = cookie ? await get_cookie(cookie) : null;
     if (cookie_info) {
         const music = await getMusic(id);
         if (music) {

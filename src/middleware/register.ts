@@ -1,6 +1,6 @@
-import { isEpitechEmailRegex, isValidPassword } from "../../modules/utils.mjs";
+import { isEpitechEmailRegex, isValidPassword } from "../../modules/utils";
 
-export default async (req, res, next) => {
+export default async (req: any, res: any, next: any) => {
     if (!req.body.email) {
         res.status(400).json({ status: "error", message: "Missing email" });
         return;
