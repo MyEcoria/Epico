@@ -6,7 +6,7 @@ export default async (req: any, res: any, next: any) => {
         return;
     }
     if (!isUUID(req.params.id)) {
-        res.status(400).json({ status: "error", message: "Invalid id" });
+        res.status(400).json({ status: "error", message: "Invalid id #01" });
         return;
     }
     next();

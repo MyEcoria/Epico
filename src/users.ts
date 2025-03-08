@@ -1,5 +1,5 @@
 import express from 'express';
-import { createUser, getUserByCode, changeToVerif, checkPassword, add_cookie } from '../modules/db';
+import { createUser, getUserByCode, changeToVerif, checkPassword, add_cookie, getUserInfoByCookie } from '../modules/db';
 import sendMail from '../modules/mail';
 import { sha256 } from 'js-sha256';
 import { v4 as uuidv4 } from 'uuid';
@@ -19,11 +19,13 @@ router.post('/register', registerMiddleware, async (req, res) => {
     const hash = sha256(password);
     const uuid = uuidv4();
     const user = await createUser(email, hash, uuid);
+    console.log(hash);
+    console.log(password);
     if (user) {
-        sendMail(email, 'Welcome', `${config.url}/confirm/${uuid}`);
+        sendMail(email, 'Welcome', `${config.url}/user/confirm/${uuid}`);
         res.json({status: "ok", email: email});
     } else {
-        res.json({status: "error", email: email});
+        res.json({status: "error", email: email, message: "User already exists"});
     }
 });
 
@@ -33,9 +35,11 @@ router.post('/login', loginMiddleware, async (req, res) => {
     const uuid = uuidv4();
 
     if (await checkPassword(email, hash)) {
-        add_cookie(email, uuid);
+        console.log("ok");
+        await add_cookie(email, uuid);
         res.json({status: "ok", email: email, cookie: uuid});
     } else {
+        console.log("error");
         res.json({status: "error", email: email});
     }
 });
@@ -50,6 +54,22 @@ router.get('/confirm/:id', comfirmMiddleware, async (req, res) => {
             res.json({status: "ok", email: email});
         } else {
             res.json({status: "error", email: email});
+        }
+    } else {
+        res.json({status: "error"});
+    }
+});
+
+router.get('/info', async (req, res) => {
+    const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
+    console.log(req.headers);
+    if (cookie) {
+        const email = await getUserInfoByCookie(cookie);
+        if (email) {
+            console.log(email);
+            res.json({status: "ok", email: email});
+        } else {
+            res.json({status: "error"});
         }
     } else {
         res.json({status: "error"});

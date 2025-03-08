@@ -1,7 +1,9 @@
 import axios from 'axios';
 import fs from 'fs';
 import config from '../config/general.json';
-import { createMusic, getMusic, existMusic } from './db';
+import { createMusic, getMusic, existMusic, updateBmTofMusic } from './db';
+import { analyseBpm } from './analyse/bpm';
+import { sha256 } from 'js-sha256';
 
 
 const coverSize = {
@@ -31,7 +33,7 @@ export async function add_music(api: any, song_id: any) {
         return;
     }
     const track = await api.getTrackInfo(song_id);
-    const trackData = await api.getTrackDownloadUrl(track, 9);
+    const trackData = await api.getTrackDownloadUrl(track, 1);
     if (!trackData) {
         console.error("Failed to get track download URL for song ID: " + song_id);
         return;
@@ -40,7 +42,12 @@ export async function add_music(api: any, song_id: any) {
     const {data} = await axios.get(trackData.trackUrl, {responseType: 'arraybuffer'});
     const outFile = trackData.isEncrypted ? api.decryptDownload(data, track.SNG_ID) : data;
     const trackWithMetadata = await api.addTrackTags(outFile, track, 500);
-    createMusic(track.SNG_ID, track.SNG_TITLE, track.ART_NAME, track.ALB_TITLE, "", track.DURATION, isrcToTimestamp(track.ISRC).toString(), trackWithMetadata, getCoverUrl(track.ALB_PICTURE, 'medium'));
+    console.log(sha256(trackWithMetadata).toString());
+    console.log(track);
+    await createMusic(track.SNG_ID, track.SNG_TITLE, track.ART_NAME, track.ALB_TITLE, "", track.DURATION, isrcToTimestamp(track.ISRC).toString(), trackWithMetadata, getCoverUrl(track.ALB_PICTURE, 'medium'), track.RANK);
+    const btm = await analyseBpm(trackWithMetadata);
+    console.log("BPM: " + btm);
+    await updateBmTofMusic(track.SNG_ID, btm);
 }
 
 export async function search_and_download(api: any, query: any) {
