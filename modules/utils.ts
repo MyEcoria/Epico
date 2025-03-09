@@ -15,3 +15,18 @@ export function isUUID(value: any) {
 export function isPositiveInteger(value: any) {
     return Number.isInteger(value) && value > 0;
 }
+
+export function extractFirstNameFromEmail(email: string): string {
+    if (!email.includes('@epitech.eu')) {
+        throw new Error('L\'email doit être au format prenom.nom@epitech.eu');
+    }
+
+    const parts = email.split('@');
+    const localPart = parts[0];
+    const nameParts = localPart.split('.');
+    let firstName = nameParts[0];
+
+    firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+
+    return firstName;
+}

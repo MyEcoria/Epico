@@ -67,7 +67,25 @@ router.post('/latest', async (req, res) => {
         const musicList = await getLastFiveListenedSongs(cookie_info);
         if (musicList && musicList.length > 0) {
             musicList.forEach((music: { song: string; song_id: any; }) => {
-                music.song = `http://192.168.1.53:3000/music/${music.song_id}.mp3`;
+                music.song = `${config.url}/music/${music.song_id}.mp3`;
+            });
+            res.json(musicList);
+        } else {
+            res.json({status: "error", message: "No music found"});
+        }
+    } else {
+        res.status(401).json({status: "error", message: "Unauthorized"});
+    }
+});
+
+router.post('/from-follow', async (req, res) => {
+    const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
+    const cookie_info = cookie ? await get_cookie(cookie) : null;
+    if (cookie_info) {
+        const musicList = await getLastFiveListenedSongs(cookie_info);
+        if (musicList && musicList.length > 0) {
+            musicList.forEach((music: { song: string; song_id: any; }) => {
+                music.song = `${config.url}/music/${music.song_id}.mp3`;
             });
             res.json(musicList);
         } else {
@@ -80,24 +98,79 @@ router.post('/latest', async (req, res) => {
 
 router.post('/flow/:id', async (req, res) => {
     const { id } = req.params;
-    let musicList;
+    let musicList: any[] = [];
     const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
     const cookie_info = cookie ? await get_cookie(cookie) : null;
     if (cookie_info) {
         if (id === 'train')
             musicList = await getFlowTrain();
         if (id === 'new')
-            musicList = await getTopRecentSongs();
+            musicList = (await getTopRecentSongs()) || [];
         if (id === 'party')
-            musicList = await getSongsByBPMRange(100, 140);
+            musicList = await getSongsByBPMRange(140, 160);
         if (id === 'chill')
             musicList = await getSongsByBPMRange(60, 100);
         if (id === 'sad')
             musicList = await getSongsByBPMRange(0, 100);
         if (musicList && musicList.length > 0) {
             musicList.forEach((music: { song: string; song_id: any; }) => {
-                music.song = `http://192.168.1.53:3000/music/${music.song_id}.mp3`;
+                music.song = `${config.url}/music/${music.song_id}.mp3`;
             });
+            res.json(musicList);
+        } else {
+            res.json({status: "error", message: "No music found"});
+        }
+    } else {
+        res.status(401).json({status: "error", message: "Unauthorized"});
+    }
+});
+
+router.post('/new', async (req, res) => {
+    let musicList;
+    const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
+    const cookie_info = cookie ? await get_cookie(cookie) : null;
+    if (cookie_info) {
+        const result = await getTopRecentSongs(5);
+        if (Array.isArray(result)) {
+            musicList = result;
+        }
+        if (musicList && musicList.length > 0) {
+            musicList.forEach((music: { song: string; song_id: any; }) => {
+                music.song = `${config.url}/music/${music.song_id}.mp3`;
+            });
+            res.json(musicList);
+        } else {
+            res.json({status: "error", message: "No music found"});
+        }
+    } else {
+        res.status(401).json({status: "error", message: "Unauthorized"});
+    }
+});
+
+router.post('/for-you', async (req, res) => {
+    let musicList;
+    const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
+    const cookie_info = cookie ? await get_cookie(cookie) : null;
+    if (cookie_info) {
+        const result = await getSongsByBPMRange(180, 600);
+        if (Array.isArray(result)) {
+            musicList = await Promise.all(
+            result.slice(0, 5).map(async (track, index) => {
+                const playlist = await getSongsByBPMRange(Math.floor(Math.random() * 0), Math.floor(Math.random() * 200));
+                playlist.forEach((music: { song: string; song_id: any; }) => {
+                    music.song = `${config.url}/music/${music.song_id}.mp3`;
+                });
+                return {
+                    title: `Mix ${index + 1}`,
+                    auteur: track.auteur,
+                    cover: track.cover,
+                    playlist: playlist
+                };
+            })
+            );
+        }
+        if (musicList && musicList.length > 0) {
+            console.log(musicList);
             res.json(musicList);
         } else {
             res.json({status: "error", message: "No music found"});
