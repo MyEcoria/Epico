@@ -26,7 +26,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_OPTIONS=--openssl-legacy-provider ts-node index.ts",
     "clean": "rm -rf node_modules && rm -rf package-lock.json && rm -f *.log && rm -rf dist && rm -f deezar-linux && rm -f deezar-macos && rm -f deezar-win.exe && rm -f deezar-macos",
-    "build": "npx tsc",
+    "build": "npx tsc && cp -r assets dist/",
     "nexe:linux": "nexe dist/index.js -t linux-x64-20.16.0 -o deezar-linux --build",
     "nexe:macos": "nexe dist/index.js -t mac-x64-20.16.0 -o deezar-macos --build",
     "nexe:win": "nexe dist/index.js -t windows-x64-20.16.0 -o deezar-win.exe --build",
