@@ -7,9 +7,9 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "outDir": "./dist",
-    "rootDir": "./src",
+    "rootDirs": ["./src", "./modules"],
     "typeRoots": ["./node_modules/@types", "./types"],
     "resolveJsonModule": true // Add this line
   },
-  "include": ["src/**/*", "types/**/*"]
+  "include": ["src/**/*", "types/**/*", "index.ts"],
 }

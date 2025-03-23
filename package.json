@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.758.0",
+    "aws-sdk": "^2.1692.0",
     "d-fi": "^2.1.6",
     "d-fi-core": "^1.3.5",
     "decimal.js": "^10.5.0",
@@ -25,7 +27,10 @@
     "start": "NODE_OPTIONS=--openssl-legacy-provider ts-node index.ts",
     "clean": "rm -rf node_modules && rm -rf package-lock.json && rm -f *.log && rm -rf dist && rm -f deezar-linux && rm -f deezar-macos && rm -f deezar-win.exe && rm -f deezar-macos",
     "build": "npx tsc",
-    "pkg": "pkg ."
+    "nexe:linux": "nexe dist/index.js -t linux-x64-20.16.0 -o deezar-linux --build",
+    "nexe:macos": "nexe dist/index.js -t mac-x64-20.16.0 -o deezar-macos --build",
+    "nexe:win": "nexe dist/index.js -t windows-x64-20.16.0 -o deezar-win.exe --build",
+    "nexe": "npm run build && npm run nexe:linux && npm run nexe:macos && npm run nexe:win"
   },
   "author": "Pierric Buchez",
   "license": "MIT",
@@ -38,6 +43,14 @@
     "@types/nodemailer": "^6.4.17",
     "@types/sqlstring": "^2.3.2",
     "babel-plugin-module-resolver": "^5.0.2",
+    "nexe": "^5.0.0-beta.4",
     "typescript": "^5.7.3"
+  },
+  "pkg": {
+    "targets": [
+      "node-linux-x64",
+      "node-macos-x64",
+      "node-win-x64"
+    ]
   }
 }

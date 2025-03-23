@@ -15,18 +15,22 @@ import musicRouter from './src/musics';
         console.error(err.message);
     }
 
-    const app = express();
+    try {
+        const app = express();
 
-    app.use(express.json());
+        app.use(express.json());
 
-    app.get('/', (req, res) => {
+        app.get('/', (req, res) => {
             res.send('Hello World!');
-    });
+        });
 
-    app.use('/user', userRouter);
-    app.use('/music', musicRouter);
+        app.use('/user', userRouter);
+        app.use('/music', musicRouter);
 
-    app.listen(config.port, () => {
+        app.listen(config.port, () => {
             console.log(`Server is running at http://localhost:${config.port}`);
-    });
+        });
+    } catch (err: any) {
+        console.error('Error starting the server:', err.message);
+    }
 })();

@@ -1,11 +1,12 @@
 import express from 'express';
-import { getMusic, get_cookie, add_listen_history, getLastFiveListenedSongs, getHistoryByToken, getTopRecentSongs, getFlowTrain, getSongsByBPMRange } from '../modules/db';
-import { search_and_download } from '../modules/deezer';
+import { getMusic, get_cookie, add_listen_history, getLastFiveListenedSongs, getHistoryByToken, getTopRecentSongs, getFlowTrain, getSongsByBPMRange, createModifyOrCreateLikedSong, isLikeSong, fromArtistYouFollow, yourArtist, countLikedSongs, countFollowArtists } from '../modules/db';
+import { search_and_download, getCoverUrl } from '../modules/deezer';
 import { Router } from 'express';
 import * as api from 'd-fi-core';
 import config from '../config/general.json';
 import sqlstring from 'sqlstring';
 import { v4 as uuidv4 } from 'uuid';
+import { downloadFile } from '../modules/s3';
 
 import musicIdMiddleware from './middleware/music_id';
 import { sha256 } from 'js-sha256';
@@ -19,7 +20,17 @@ router.use(express.json());
 
 router.post('/search', async (req, res) => {
     const { name } = req.body;
-    res.json(await search_and_download(api, sqlstring.escape(name)));
+    console.log(name);
+    const result = await search_and_download(api, sqlstring.escape(name));
+    const songsArray = result.TRACK.data.map((song: any) => ({
+        song_id: song.SNG_ID,
+        title: song.SNG_TITLE,
+        auteur: song.ART_NAME,
+        cover: getCoverUrl(song.ALB_PICTURE, 'medium'),
+        duration: song.DURATION,
+        song: `${config.url}/music/${song.SNG_ID}.mp3`
+    }));
+    res.json(songsArray);
 });
 
 router.get('/:id.mp3', musicIdMiddleware, async (req, res) => {
@@ -30,8 +41,7 @@ router.get('/:id.mp3', musicIdMiddleware, async (req, res) => {
         const music = await getMusic(id);
         if (music) {
             res.setHeader('Content-Type', 'audio/mp3');
-            console.log(sha256(music.song).toString());
-            res.send(music.song);
+            res.send(await downloadFile(music.song));
         } else {
             res.status(404).send('Music not found');
         }
@@ -82,7 +92,7 @@ router.post('/from-follow', async (req, res) => {
     const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
     const cookie_info = cookie ? await get_cookie(cookie) : null;
     if (cookie_info) {
-        const musicList = await getLastFiveListenedSongs(cookie_info);
+        const musicList = await fromArtistYouFollow(cookie_info, 5);
         if (musicList && musicList.length > 0) {
             musicList.forEach((music: { song: string; song_id: any; }) => {
                 music.song = `${config.url}/music/${music.song_id}.mp3`;
@@ -176,6 +186,67 @@ router.post('/for-you', async (req, res) => {
             res.json({status: "error", message: "No music found"});
         }
     } else {
+        res.status(401).json({status: "error", message: "Unauthorized"});
+    }
+});
+
+router.post('/liked', async (req, res) => {
+    const { song_id } = req.body;
+    const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
+    const cookie_info = cookie ? await get_cookie(cookie) : null;
+    if (cookie_info && song_id) {
+        const create = await createModifyOrCreateLikedSong(cookie_info, song_id);
+        if (create) {
+            res.json({status: "ok"});
+        } else {
+            res.json({status: "error", message: "Error while liking the song"});
+        }
+    } else {
+        res.status(401).json({status: "error", message: "Unauthorized"});
+    }
+});
+
+router.post('/is-liked', async (req, res) => {
+    const { song_id } = req.body;
+    const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
+    const cookie_info = cookie ? await get_cookie(cookie) : null;
+    if (cookie_info && song_id) {
+        console.log(await isLikeSong(cookie_info, song_id));
+        const likedSong = await isLikeSong(cookie_info, song_id);
+        res.json({status: "ok", liked: (likedSong !== false && likedSong !== 0) ? "true" : "false"});
+    } else {
+        res.status(401).json({status: "error", message: "Unauthorized"});
+    }
+});
+
+router.post('/your-artist', async (req, res) => {
+    const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
+    const cookie_info = cookie ? await get_cookie(cookie) : null;
+    if (cookie_info) {
+        res.json({status: "ok", artist: await yourArtist(cookie_info, 7)});
+    } else {
+        res.status(401).json({status: "error", message: "Unauthorized"});
+    }
+});
+
+router.post('/count-liked', async (req, res) => {
+    const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
+    const cookie_info = cookie ? await get_cookie(cookie) : null;
+    if (cookie_info) {
+        res.json({status: "ok", count: await countLikedSongs(cookie_info)});
+    }
+    else {
+        res.status(401).json({status: "error", message: "Unauthorized"});
+    }
+});
+
+router.post('/count-follow', async (req, res) => {
+    const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
+    const cookie_info = cookie ? await get_cookie(cookie) : null;
+    if (cookie_info) {
+        res.json({status: "ok", count: await countFollowArtists(cookie_info)});
+    }
+    else {
         res.status(401).json({status: "error", message: "Unauthorized"});
     }
 });

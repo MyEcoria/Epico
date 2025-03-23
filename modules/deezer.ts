@@ -4,7 +4,8 @@ import config from '../config/general.json';
 import { createMusic, getMusic, existMusic, updateBmTofMusic } from './db';
 import { analyseBpm } from './analyse/bpm';
 import { sha256 } from 'js-sha256';
-
+import { v4 as uuidv4 } from 'uuid';
+import { uploadFile } from './s3';
 
 const coverSize = {
     small: '56x56',
@@ -13,7 +14,7 @@ const coverSize = {
     xl: '1000x1000'
 };
 
-const getCoverUrl = (albumPicture: any, size = 'medium') => {
+export function getCoverUrl(albumPicture: any, size = 'medium') {
     return `https://cdn-images.dzcdn.net/images/cover/${albumPicture}/${(coverSize as any)[size]}.jpg`;
 }
 
@@ -28,45 +29,108 @@ function isrcToTimestamp(isrcCode: any) {
 }
 
 export async function add_music(api: any, song_id: any) {
-    if (await existMusic(song_id)) {
-        console.log("Music already exists");
-        return;
+    let attempts = 0;
+    const maxAttempts = 3;
+    
+    while (attempts < maxAttempts) {
+        try {
+            // Check if music exists in parallel with getting track info
+            const [exists, track] = await Promise.all([
+                existMusic(song_id),
+                api.getTrackInfo(song_id)
+            ]);
+            
+            if (exists) {
+                console.log("Music already exists");
+                return;
+            }
+            
+            const trackData = await api.getTrackDownloadUrl(track, 1);
+            if (!trackData) {
+                console.error("Failed to get track download URL for song ID: " + song_id);
+                return;
+            }
+            
+            console.log("Downloading " + track.SNG_TITLE);
+            const {data} = await axios.get(trackData.trackUrl, {responseType: 'arraybuffer'});
+            const outFile = trackData.isEncrypted ? api.decryptDownload(data, track.SNG_ID) : data;
+            const trackWithMetadata = await api.addTrackTags(outFile, track, 500);
+            console.log(sha256(trackWithMetadata).toString());
+            
+            // Create music 
+            const new_uid = uuidv4();
+            await uploadFile(new_uid, trackWithMetadata);
+            await createMusic(track.SNG_ID, track.SNG_TITLE, track.ART_NAME, track.ALB_TITLE, "", track.DURATION, isrcToTimestamp(track.ISRC).toString(), new_uid, getCoverUrl(track.ALB_PICTURE, 'medium'), track.RANK);
+            
+            // Run BPM analysis in background without blocking
+            (async () => {
+                try {
+                    const btm = await analyseBpm(trackWithMetadata);
+                    console.log("BPM: " + btm);
+                    await updateBmTofMusic(track.SNG_ID, btm);
+                } catch (err) {
+                    console.error(`BPM analysis failed: ${(err as any).message}`);
+                }
+            })();
+            
+            break; // Exit the loop if successful
+        } catch (error) {
+            attempts++;
+            console.error(`Attempt ${attempts} failed: ${(error as any).message}`);
+            if (attempts >= maxAttempts) {
+                console.error("Max attempts reached. Failed to add music.");
+            }
+        }
     }
-    const track = await api.getTrackInfo(song_id);
-    const trackData = await api.getTrackDownloadUrl(track, 1);
-    if (!trackData) {
-        console.error("Failed to get track download URL for song ID: " + song_id);
-        return;
-    }
-    console.log("Downloading " + track.SNG_TITLE);
-    const {data} = await axios.get(trackData.trackUrl, {responseType: 'arraybuffer'});
-    const outFile = trackData.isEncrypted ? api.decryptDownload(data, track.SNG_ID) : data;
-    const trackWithMetadata = await api.addTrackTags(outFile, track, 500);
-    console.log(sha256(trackWithMetadata).toString());
-    console.log(track);
-    await createMusic(track.SNG_ID, track.SNG_TITLE, track.ART_NAME, track.ALB_TITLE, "", track.DURATION, isrcToTimestamp(track.ISRC).toString(), trackWithMetadata, getCoverUrl(track.ALB_PICTURE, 'medium'), track.RANK);
-    const btm = await analyseBpm(trackWithMetadata);
-    console.log("BPM: " + btm);
-    await updateBmTofMusic(track.SNG_ID, btm);
 }
 
 export async function search_and_download(api: any, query: any) {
-    const search = await api.searchMusic(query);
-    for (let i = 0; i < search.TRACK.data.length; i++) {
-        const song_id = search.TRACK.data[i].SNG_ID;
-        add_music(api, song_id);
+    try {
+        const search = await api.searchMusic(query);
+        
+        // Process tracks in the background
+        (async () => {
+            for (let i = 0; i < search.TRACK.data.length; i++) {
+                const song_id = search.TRACK.data[i].SNG_ID;
+                try {
+                    await add_music(api, song_id);
+                } catch (error) {
+                    console.error(`Failed to add music for song ID ${song_id}: ${(error as any).message}`);
+                }
+            }
+        })();
+
+        // Process albums in the background
+        // (async () => {
+        //     for (let i = 0; i < search.ALBUM.data.length; i++) {
+        //         const album_id = search.ALBUM.data[i].ALB_ID;
+        //         try {
+        //             await download_album(api, album_id);
+        //         } catch (error) {
+        //             console.error(`Failed to download album for album ID ${album_id}: ${(error as any).message}`);
+        //         }
+        //     }
+        // })();
+
+        return search;
+    } catch (error) {
+        console.error(`Failed to search music with query ${query}: ${(error as any).message}`);
+        throw error;
     }
-    for (let i = 0; i < search.ALBUM.data.length; i++) {
-        const album_id = search.ALBUM.data[i].ALB_ID;
-        download_album(api, album_id);
-    }
-    return search;
 }
 
 export async function download_album(api: any, album_id: any) {
-    const album = await api.getAlbumTracks(album_id);
-    for (let i = 0; i < album.data.length; i++) {
-        const song_id = album.data[i].SNG_ID;
-        add_music(api, song_id);
+    try {
+        const album = await api.getAlbumTracks(album_id);
+        for (let i = 0; i < album.data.length; i++) {
+            const song_id = album.data[i].SNG_ID;
+            try {
+                await add_music(api, song_id);
+            } catch (error) {
+                console.error(`Failed to add music for song ID ${song_id}: ${(error as any).message}`);
+            }
+        }
+    } catch (error) {
+        console.error(`Failed to download album with album ID ${album_id}: ${(error as any).message}`);
     }
 }
