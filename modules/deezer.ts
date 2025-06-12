@@ -5,6 +5,7 @@ import { analyseBpm } from './analyse/bpm';
 import { sha256 } from 'js-sha256';
 import { v4 as uuidv4 } from 'uuid';
 import { uploadFile } from './s3';
+import { logger } from './logger';
 
 const coverSize = {
     small: '56x56',
@@ -33,28 +34,25 @@ export async function add_music(api: any, song_id: any) {
     
     while (attempts < maxAttempts) {
         try {
-            // Check if music exists in parallel with getting track info
             const [exists, track] = await Promise.all([
                 existMusic(song_id),
                 api.getTrackInfo(song_id)
             ]);
             
             if (exists) {
-                console.log("Music already exists");
                 return;
             }
             
             const trackData = await api.getTrackDownloadUrl(track, 1);
             if (!trackData) {
-                console.error("Failed to get track download URL for song ID: " + song_id);
+                logger.log({ level: 'error', message: `Failed to get track download URL for song ID ${song_id}` });
                 return;
             }
             
-            console.log("Downloading " + track.SNG_TITLE);
+            logger.log({ level: 'info', message: `Downloading track ${track.SNG_TITLE} (${track.SNG_ID})` });
             const {data} = await axios.get(trackData.trackUrl, {responseType: 'arraybuffer'});
             const outFile = trackData.isEncrypted ? api.decryptDownload(data, track.SNG_ID) : data;
             const trackWithMetadata = await api.addTrackTags(outFile, track, 500);
-            console.log(sha256(trackWithMetadata).toString());
             
             // Create music 
             const new_uid = uuidv4();
@@ -65,19 +63,18 @@ export async function add_music(api: any, song_id: any) {
             (async () => {
                 try {
                     const btm = await analyseBpm(trackWithMetadata);
-                    console.log("BPM: " + btm);
                     await updateBmTofMusic(track.SNG_ID, btm);
                 } catch (err) {
-                    console.error(`BPM analysis failed: ${(err as any).message}`);
+                    logger.log({ level: 'error', message: `BPM analysis failed for song ID ${song_id}: ${(err as any).message}` });
                 }
             })();
             
-            break; // Exit the loop if successful
+            break;
         } catch (error) {
             attempts++;
-            console.error(`Attempt ${attempts} failed: ${(error as any).message}`);
+            logger.log({ level: 'error', message: `Attempt ${attempts} failed for song ID ${song_id}: ${(error as any).message}` });
             if (attempts >= maxAttempts) {
-                console.error("Max attempts reached. Failed to add music.");
+                logger.log({ level: 'error', message: `Failed to add music after ${maxAttempts} attempts for song ID ${song_id}` });
             }
         }
     }
@@ -94,7 +91,7 @@ export async function search_and_download(api: any, query: any) {
                 try {
                     await add_music(api, song_id);
                 } catch (error) {
-                    console.error(`Failed to add music for song ID ${song_id}: ${(error as any).message}`);
+                    logger.log({ level: 'error', message: `Failed to add music for song ID ${song_id}: ${(error as any).message}` });
                 }
             }
         })();
@@ -113,7 +110,7 @@ export async function search_and_download(api: any, query: any) {
 
         return search;
     } catch (error) {
-        console.error(`Failed to search music with query ${query}: ${(error as any).message}`);
+        logger.log({ level: 'error', message: `Search failed for query ${query}: ${(error as any).message}` });
         throw error;
     }
 }
@@ -126,10 +123,10 @@ export async function download_album(api: any, album_id: any) {
             try {
                 await add_music(api, song_id);
             } catch (error) {
-                console.error(`Failed to add music for song ID ${song_id}: ${(error as any).message}`);
+                logger.log({ level: 'error', message: `Failed to add music for song ID ${song_id}: ${(error as any).message}` });
             }
         }
     } catch (error) {
-        console.error(`Failed to download album with album ID ${album_id}: ${(error as any).message}`);
+        logger.log({ level: 'error', message: `Failed to download album with album ID ${album_id}: ${(error as any).message}` });
     }
 }

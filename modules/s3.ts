@@ -1,4 +1,5 @@
-const { S3Client, PutObjectCommand, CreateBucketCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand, CreateBucketCommand, GetObjectCommand, HeadBucketCommand } = require("@aws-sdk/client-s3");
+import { logger } from './logger';
 
 const client = new S3Client({
   region: process.env.S3_REGION || "eu-west-3",
@@ -13,12 +14,21 @@ const client = new S3Client({
 const bucketName = process.env.S3_BUCKET_NAME || "your-bucket-name";
 
 const run = async () => {
-  try {
-    const data = await client.send(new CreateBucketCommand({ Bucket: bucketName }));
-    console.log("Bucket créé avec succès :", data);
-  } catch (err) {
-    console.error("Erreur lors de la création du bucket :", err);
-  }
+    try {
+        await client.send(new HeadBucketCommand({ Bucket: bucketName }));
+        logger.log({ level: 'info', message: `Le bucket ${bucketName} existe déjà.` });
+    } catch (err: any) {
+        if (err.name === "NotFound" || err.$metadata?.httpStatusCode === 404) {
+            try {
+                const data = await client.send(new CreateBucketCommand({ Bucket: bucketName }));
+                logger.log({ level: 'info', message: `Le bucket ${bucketName} vient d'être créé.` });
+            } catch (createErr) {
+                logger.log({ level: 'error', message: `Erreur lors de la création du bucket : ${createErr}` });
+            }
+        } else {
+            logger.log({ level: 'error', message: `Erreur lors de la vérification du bucket : ${err}` });
+        }
+    }
 };
 
 run();
@@ -32,11 +42,11 @@ export function uploadFile(keyName: string, fileBlob: string) {
 
     return client.send(new PutObjectCommand(uploadParams))
         .then((data: import("@aws-sdk/client-s3").PutObjectCommandOutput) => {
-            console.log("Fichier uploadé avec succès :", data);
+            logger.log({ level: 'debug', message: `Fichier ${keyName} uploadé avec succès.` });
             return data;
         })
         .catch((err: any) => {
-            console.error("Erreur lors de l'upload du fichier :", err);
+            logger.log({ level: 'error', message: `Erreur lors de l'upload du fichier ${keyName} : ${err}` });
             throw err;
         });
 }
@@ -59,12 +69,12 @@ export function downloadFile(keyName: string): Promise<Buffer> {
             };
 
             return streamToBuffer(data.Body).then((fileBlob) => {
-                console.log("Fichier téléchargé avec succès");
+                logger.log({ level: 'debug', message: `Fichier ${keyName} téléchargé avec succès.` });
                 return fileBlob;
             });
         })
         .catch((err: any) => {
-            console.error("Erreur lors du téléchargement du fichier :", err);
+            logger.log({ level: 'error', message: `Erreur lors du téléchargement du fichier ${keyName} : ${err}` });
             throw err;
         });
 }

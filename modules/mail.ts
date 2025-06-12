@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer';
 import path from 'path';
 import fs from 'fs';
+import { logger } from './logger';
 
 const transporter = nodemailer.createTransport({
     host: process.env.EMAIL_HOST || 'smtp.example.com',
@@ -49,9 +50,9 @@ export default async function sendMail(to: string, subject: string, text: string
 
     transporter.sendMail(mailOptions, function(error: any, info: any) {
         if (error) {
-            console.error('Erreur lors de l\'envoi de l\'e-mail:', error);
+            logger.log({ level: 'error', message: `Failed to send email to ${to}: ${error.message}` });
         } else {
-            console.log('E-mail envoyé avec succès:', info.response);
+            logger.log({ level: 'debug', message: `E-mail envoyé à ${to}: ${info.response}` });
         }
     });
 }
