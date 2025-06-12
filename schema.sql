@@ -1,81 +1,139 @@
--- --------------------------------------------------------
--- Hôte:                         192.168.1.158
--- Version du serveur:           8.0.41-0ubuntu0.24.10.1 - (Ubuntu)
--- SE du serveur:                Linux
--- HeidiSQL Version:             12.10.0.7000
--- --------------------------------------------------------
+/*M!999999\- enable the sandbox mode */ 
+-- MariaDB dump 10.19-11.8.2-MariaDB, for Linux (x86_64)
+--
+-- Host: localhost    Database: deezer
+-- ------------------------------------------------------
+-- Server version	11.8.2-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*M!100616 SET @OLD_NOTE_VERBOSITY=@@NOTE_VERBOSITY, NOTE_VERBOSITY=0 */;
 
+--
+-- Current Database: `deezer`
+--
 
--- Listage de la structure de la base pour deezer
-CREATE DATABASE IF NOT EXISTS `deezer` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+/*!40000 DROP DATABASE IF EXISTS `deezer`*/;
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `deezer` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
+
 USE `deezer`;
 
--- Listage de la structure de table deezer. listen_history
-CREATE TABLE IF NOT EXISTS `listen_history` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `email` text COLLATE utf8mb4_general_ci NOT NULL,
-  `music_id` text COLLATE utf8mb4_general_ci NOT NULL,
-  `date` text COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+--
+-- Table structure for table `liked_song`
+--
 
--- Les données exportées n'étaient pas sélectionnées.
+DROP TABLE IF EXISTS `liked_song`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `liked_song` (
+  `email` varchar(255) NOT NULL,
+  `song_id` varchar(255) NOT NULL,
+  `liked` tinyint(1) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`email`,`song_id`),
+  KEY `song_id` (`song_id`),
+  CONSTRAINT `liked_song_ibfk_1` FOREIGN KEY (`email`) REFERENCES `users` (`email`),
+  CONSTRAINT `liked_song_ibfk_2` FOREIGN KEY (`song_id`) REFERENCES `musics` (`song_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Listage de la structure de table deezer. musics
-CREATE TABLE IF NOT EXISTS `musics` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `song_id` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `title` text COLLATE utf8mb4_general_ci,
-  `auteur` text COLLATE utf8mb4_general_ci,
-  `album` text COLLATE utf8mb4_general_ci,
-  `genre` text COLLATE utf8mb4_general_ci,
-  `dure` text COLLATE utf8mb4_general_ci,
-  `date` text COLLATE utf8mb4_general_ci,
-  `song` longblob,
-  `cover` text COLLATE utf8mb4_general_ci,
+--
+-- Table structure for table `listen_history`
+--
+
+DROP TABLE IF EXISTS `listen_history`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `listen_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL,
+  `music_id` varchar(255) DEFAULT NULL,
+  `token` varchar(255) NOT NULL,
+  `date` text NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `idx_email` (`email`),
+  KEY `idx_music_id` (`music_id`),
+  KEY `idx_token` (`token`),
+  CONSTRAINT `fk_listen_history_music` FOREIGN KEY (`music_id`) REFERENCES `musics` (`song_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_listen_history_user` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `musics`
+--
+
+DROP TABLE IF EXISTS `musics`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `musics` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `song_id` varchar(255) DEFAULT NULL,
+  `title` text DEFAULT NULL,
+  `auteur` text DEFAULT NULL,
+  `album` text DEFAULT NULL,
+  `genre` text DEFAULT NULL,
+  `dure` text DEFAULT NULL,
+  `date` text DEFAULT NULL,
+  `song` text DEFAULT NULL,
+  `cover` text DEFAULT NULL,
+  `rank` bigint(20) unsigned DEFAULT NULL,
+  `BPM` bigint(20) unsigned DEFAULT NULL,
   UNIQUE KEY `song_id` (`song_id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=398 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Les données exportées n'étaient pas sélectionnées.
+--
+-- Table structure for table `users`
+--
 
--- Listage de la structure de table deezer. users
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
-  `password` text COLLATE utf8mb4_general_ci NOT NULL,
-  `date` text COLLATE utf8mb4_general_ci NOT NULL,
-  `verif` enum('Y','N') COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'N',
-  `code` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) NOT NULL DEFAULT '',
+  `password` text NOT NULL,
+  `date` text NOT NULL,
+  `verif` enum('Y','N') NOT NULL DEFAULT 'N',
+  `code` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
--- Les données exportées n'étaient pas sélectionnées.
+--
+-- Table structure for table `users_token`
+--
 
--- Listage de la structure de table deezer. users_token
-CREATE TABLE IF NOT EXISTS `users_token` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `email` text COLLATE utf8mb4_general_ci,
-  `cookie` text COLLATE utf8mb4_general_ci NOT NULL,
-  `date` text COLLATE utf8mb4_general_ci NOT NULL,
+DROP TABLE IF EXISTS `users_token`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users_token` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` text DEFAULT NULL,
+  `cookie` text NOT NULL,
+  `date` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
--- Les données exportées n'étaient pas sélectionnées.
-
-/*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40111 SET SQL_NOTES=IFNULL(@OLD_SQL_NOTES, 1) */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
+
+-- Dump completed on 2025-06-12 15:29:38

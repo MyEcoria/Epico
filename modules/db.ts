@@ -1,14 +1,12 @@
 import mysql from 'mysql2/promise';
-import config from '../config/db.json';
-import Decimal from 'decimal.js';
 import { logger } from './logger';
 
 const dbConfig = {
-  host: config.host,
-  user: config.user,
-  password: config.password,
-  database: config.database,
-  //port: config.port,
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'fucking_deezer',
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306,
 };
 
 const pool = mysql.createPool(dbConfig);

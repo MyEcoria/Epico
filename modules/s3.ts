@@ -1,19 +1,16 @@
 const { S3Client, PutObjectCommand, CreateBucketCommand, GetObjectCommand } = require("@aws-sdk/client-s3");
-const fs = require('fs');
 
-// Configuration du client S3
 const client = new S3Client({
-  region: 'us-west-1', // Remplacez par votre région
-  endpoint: 'http://localhost:8000', // Remplacez par l'URL de votre serveur S3
+  region: process.env.S3_REGION || "eu-west-3",
+  endpoint: process.env.ACCESS_URL || "https://exemple.com",
   credentials: {
-    accessKeyId: 'accessKey1',
-    secretAccessKey: 'verySecretKey1',
+    accessKeyId: process.env.S3_ACCESS_KEY_ID || "your-access-key-id",
+    secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || "your-secret",
   },
-  forcePathStyle: true, // Nécessaire pour certains serveurs S3 compatibles
+  forcePathStyle: true,
 });
 
-// Paramètres de l'upload
-const bucketName = 'my-bucket';
+const bucketName = process.env.S3_BUCKET_NAME || "your-bucket-name";
 
 const run = async () => {
   try {
@@ -26,7 +23,6 @@ const run = async () => {
 
 run();
 
-// Uploader le fichier
 export function uploadFile(keyName: string, fileBlob: string) {
     const uploadParams = {
         Bucket: bucketName,

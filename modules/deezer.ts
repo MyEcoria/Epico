@@ -1,6 +1,5 @@
 import axios from 'axios';
 import fs from 'fs';
-import config from '../config/general.json';
 import { createMusic, getMusic, existMusic, updateBmTofMusic } from './db';
 import { analyseBpm } from './analyse/bpm';
 import { sha256 } from 'js-sha256';

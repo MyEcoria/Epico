@@ -4,7 +4,6 @@ import sendMail from '../modules/mail';
 import { sha256 } from 'js-sha256';
 import { v4 as uuidv4 } from 'uuid';
 import { Router } from 'express';
-import config from '../config/general.json';
 import { extractFirstNameFromEmail } from '../modules/utils';
 
 import registerMiddleware from './middleware/register';
@@ -23,7 +22,7 @@ router.post('/register', registerMiddleware, async (req, res) => {
     console.log(hash);
     console.log(password);
     if (user) {
-        sendMail(email, 'Welcome', `${config.url}/user/confirm/${uuid}`);
+        sendMail(email, 'Welcome', `${process.env.APP_URL}/user/confirm/${uuid}`);
         res.json({status: "ok", email: email});
     } else {
         res.json({status: "error", email: email, message: "User already exists"});

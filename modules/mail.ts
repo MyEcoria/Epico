@@ -1,16 +1,14 @@
 import nodemailer from 'nodemailer';
-import config from '../config/smtp.json';
-import general from '../config/general.json';
 import path from 'path';
 import fs from 'fs';
 
 const transporter = nodemailer.createTransport({
-    host: config.host,
-    port: config.port,
+    host: process.env.EMAIL_HOST || 'smtp.example.com',
+    port: process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT) : 587,
     secure: false,
     auth: {
-        user: config.user,
-        pass: config.password
+        user: process.env.EMAIL_USER || '',
+        pass: process.env.EMAIL_PASSWORD || ''
     }
 });
 
@@ -19,7 +17,7 @@ export default async function sendMail(to: string, subject: string, text: string
     const logoCid = 'logo@myecoria';
 
     const mailOptions = {
-        from: config.from,
+        from: process.env.EMAIL_FROM,
         to: to,
         subject: subject,
         html: `
@@ -36,7 +34,7 @@ export default async function sendMail(to: string, subject: string, text: string
                 <br/>
                 <hr>
                 <div style="text-align: center;">
-                    Your ${general.name} Team
+                    Your ${process.env.APP_NAME || 'Epico'} Team
                 </div>
             </div>
         `,
