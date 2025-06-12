@@ -7,14 +7,17 @@ import * as api from 'd-fi-core';
 import userRouter from './src/users';
 import musicRouter from './src/musics';
 
+import { logger } from './modules/logger';
+
 (async () => {
     await api.initDeezerApi(process.env.DEEZER_KEY || '');
 
     try {
         const user = await api.getUser();
-        console.log('Logged in as ' + user.BLOG_NAME);
+        logger.log({ level: 'verbose', message: `User connected: ${user.BLOG_NAME} (${user.LANG})` });
     } catch (err: any) {
-        console.error(err.message);
+        logger.log({ level: 'error', message: `Failed to connect user: ${err.message}` });
+        process.exit(84);
     }
 
     try {
@@ -30,9 +33,10 @@ import musicRouter from './src/musics';
         app.use('/music', musicRouter);
 
         app.listen(process.env.APP_PORT || '8000', () => {
-            console.log(`Server is running at http://localhost:${process.env.APP_PORT || '8000'}`);
+            logger.log({ level: 'http', message: `Server is running on port ${process.env.APP_PORT || '8000'}` });
         });
     } catch (err: any) {
-        console.error('Error starting the server:', err.message);
+        logger.log({ level: 'error', message: `Error starting server: ${err.message}` });
+        process.exit(84);
     }
 })();

@@ -19,7 +19,6 @@ router.use(express.json());
 
 router.post('/search', async (req, res) => {
     const { name } = req.body;
-    console.log(name);
     const result = await search_and_download(api, sqlstring.escape(name));
     const songsArray = result.TRACK.data.map((song: any) => ({
         song_id: song.SNG_ID,
@@ -38,7 +37,6 @@ router.get('/:id.mp3', musicIdMiddleware, async (req, res) => {
     const cookie_info = token ? await getHistoryByToken(token as string) : null;
     if (cookie_info && cookie_info.music_id === id) {
         const music = await getMusic(id);
-        console.log(music);
         if (music) {
             res.setHeader('Content-Type', 'audio/mp3');
             res.send(await downloadFile(music.song));
@@ -54,9 +52,6 @@ router.post('/auth', async (req, res) => {
     const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
     const uuid = uuidv4();
     const { song_id } = req.body;
-    console.log(song_id);
-    console.log(cookie);
-    console.log(uuid);
     if (cookie && song_id) {
         const cookie_info = await get_cookie(cookie);
         if (cookie_info) {
@@ -180,7 +175,6 @@ router.post('/for-you', async (req, res) => {
             );
         }
         if (musicList && musicList.length > 0) {
-            console.log(musicList);
             res.json(musicList);
         } else {
             res.json({status: "error", message: "No music found"});
@@ -211,7 +205,6 @@ router.post('/is-liked', async (req, res) => {
     const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
     const cookie_info = cookie ? await get_cookie(cookie) : null;
     if (cookie_info && song_id) {
-        console.log(await isLikeSong(cookie_info, song_id));
         const likedSong = await isLikeSong(cookie_info, song_id);
         res.json({status: "ok", liked: (likedSong !== false && likedSong !== 0) ? "true" : "false"});
     } else {

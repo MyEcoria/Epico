@@ -1,4 +1,5 @@
 import MusicTempo from 'music-tempo';
+import { logger } from '../logger';
 var AudioContext = require("web-audio-api").AudioContext;
 
 export async function analyseBpm2(buffer: any): Promise<number> {
@@ -27,7 +28,7 @@ export async function analyseBpm(buffer: any): Promise<number> {
                 let bpm = await analyseBpm2(decodedData);
                 resolve(bpm);
             } catch (error) {
-                console.error(error);
+                logger.log({ level: 'error', message: `BPM analysis failed: ${(error as any).message}` });
                 resolve(0);
             }
         }, reject);

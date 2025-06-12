@@ -1,7 +1,7 @@
 import winston from 'winston';
 
 const logger = winston.createLogger({
-    level: 'info',
+    level: process.env.NODE_ENV === 'production' ? 'verbose' : 'silly',
     format: winston.format.combine(
         winston.format.timestamp({
             format: 'YYYY-MM-DD HH:mm:ss.SSSSSS'
@@ -10,7 +10,7 @@ const logger = winston.createLogger({
         winston.format.splat(),
         winston.format.json()
     ),
-    defaultMeta: { service: 'NanBet' },
+    defaultMeta: { service: process.env.APP_NAME || 'Epico' },
     transports: [
         new winston.transports.File({ filename: 'error.log', level: 'error' }),
         new winston.transports.File({ filename: 'combined.log' }),

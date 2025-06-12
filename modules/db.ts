@@ -64,7 +64,7 @@ export async function createUser(email: string, password: string, uuid: string) 
     logger.log({ level: 'info', message: `L'adresse ${email} vient d'être enregistrée` });
     return true;
   } catch (error) {
-    logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${(error as any).message}` });
+    logger.log({ level: 'error', message: `Erreur lors de la création de l'utilisateur : ${error}` });
     return false;
   }
 }
@@ -105,7 +105,7 @@ export async function add_listen_history(email: string, song_id: string, token: 
     logger.log({ level: 'info', message: `L'adresse ${email} vient d'être enregistrée` });
     return true;
   } catch (error) {
-    logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${(error as any).message}` });
+    logger.log({ level: 'error', message: `Erreur lors de la création de l'historique d'écoute' : ${(error as any).message}` });
     return false;
   }
 }
@@ -118,7 +118,7 @@ export async function add_cookie(email: string, uuid: string) {
     logger.log({ level: 'info', message: `L'adresse ${email} vient d'être enregistrée` });
     return true;
   } catch (error) {
-    logger.log({ level: 'error', message: `Erreur lors de la création de la musique : ${(error as any).message}` });
+    logger.log({ level: 'error', message: `Erreur lors de la création du cookie : ${(error as any).message}` });
     return false;
   }
 }
@@ -139,8 +139,6 @@ export async function checkPassword(email: string, password: string) {
     const sql = 'SELECT * FROM users WHERE email = ?';
     const [rows]: any = await pool.execute(sql, [email]);
     if (rows && rows.length) {
-      console.log(rows[0].password);
-      console.log(password);
       if (rows[0].password == password && rows[0].verif == "Y") {
         return true;
       } else {
@@ -164,7 +162,6 @@ export async function getUserInfoByCookie(cookie: string) {
 }
 
 export async function getLastFiveListenedSongs(email: string) {
-  console.log(`email: ${email}`);
   try {
     const sql = `
       SELECT DISTINCT m.song_id, m.title, m.auteur, m.album, m.genre, m.dure, m.date, m.BPM, m.cover
