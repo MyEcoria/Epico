@@ -1,12 +1,14 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import * as api from 'd-fi-core';
-import config from './config/general.json';
 
 import userRouter from './src/users';
 import musicRouter from './src/musics';
 
 (async () => {
-    await api.initDeezerApi(config.deezer_key);
+    await api.initDeezerApi(process.env.DEEZER_KEY || '');
 
     try {
         const user = await api.getUser();
@@ -27,8 +29,8 @@ import musicRouter from './src/musics';
         app.use('/user', userRouter);
         app.use('/music', musicRouter);
 
-        app.listen(config.port, () => {
-            console.log(`Server is running at http://localhost:${config.port}`);
+        app.listen(process.env.APP_PORT || '8000', () => {
+            console.log(`Server is running at http://localhost:${process.env.APP_PORT || '8000'}`);
         });
     } catch (err: any) {
         console.error('Error starting the server:', err.message);

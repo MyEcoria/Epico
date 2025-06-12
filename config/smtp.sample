@@ -1,7 +1,0 @@
-{
-    "from": "contact@myecoria.com",
-    "host": "pro3.mail.ovh.net",
-    "port": 587,
-    "user": "contact@myecoria.com",
-    "password": "password"
-}

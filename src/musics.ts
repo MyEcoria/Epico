@@ -3,7 +3,6 @@ import { getMusic, get_cookie, add_listen_history, getLastFiveListenedSongs, get
 import { search_and_download, getCoverUrl } from '../modules/deezer';
 import { Router } from 'express';
 import * as api from 'd-fi-core';
-import config from '../config/general.json';
 import sqlstring from 'sqlstring';
 import { v4 as uuidv4 } from 'uuid';
 import { downloadFile } from '../modules/s3';
@@ -15,7 +14,7 @@ const router = Router();
 router.use(express.json());
 
 (async () => {
-    await api.initDeezerApi(config.deezer_key);
+    await api.initDeezerApi(process.env.DEEZER_KEY || '');
 })();
 
 router.post('/search', async (req, res) => {
@@ -28,7 +27,7 @@ router.post('/search', async (req, res) => {
         auteur: song.ART_NAME,
         cover: getCoverUrl(song.ALB_PICTURE, 'medium'),
         duration: song.DURATION,
-        song: `${config.url}/music/${song.SNG_ID}.mp3`
+        song: `${process.env.APP_URL}/music/${song.SNG_ID}.mp3`
     }));
     res.json(songsArray);
 });
@@ -39,6 +38,7 @@ router.get('/:id.mp3', musicIdMiddleware, async (req, res) => {
     const cookie_info = token ? await getHistoryByToken(token as string) : null;
     if (cookie_info && cookie_info.music_id === id) {
         const music = await getMusic(id);
+        console.log(music);
         if (music) {
             res.setHeader('Content-Type', 'audio/mp3');
             res.send(await downloadFile(music.song));
@@ -77,7 +77,7 @@ router.post('/latest', async (req, res) => {
         const musicList = await getLastFiveListenedSongs(cookie_info);
         if (musicList && musicList.length > 0) {
             musicList.forEach((music: { song: string; song_id: any; }) => {
-                music.song = `${config.url}/music/${music.song_id}.mp3`;
+                music.song = `${process.env.APP_URL}/music/${music.song_id}.mp3`;
             });
             res.json(musicList);
         } else {
@@ -95,7 +95,7 @@ router.post('/from-follow', async (req, res) => {
         const musicList = await fromArtistYouFollow(cookie_info, 5);
         if (musicList && musicList.length > 0) {
             musicList.forEach((music: { song: string; song_id: any; }) => {
-                music.song = `${config.url}/music/${music.song_id}.mp3`;
+                music.song = `${process.env.APP_URL}/music/${music.song_id}.mp3`;
             });
             res.json(musicList);
         } else {
@@ -124,7 +124,7 @@ router.post('/flow/:id', async (req, res) => {
             musicList = await getSongsByBPMRange(0, 100);
         if (musicList && musicList.length > 0) {
             musicList.forEach((music: { song: string; song_id: any; }) => {
-                music.song = `${config.url}/music/${music.song_id}.mp3`;
+                music.song = `${process.env.APP_URL}/music/${music.song_id}.mp3`;
             });
             res.json(musicList);
         } else {
@@ -146,7 +146,7 @@ router.post('/new', async (req, res) => {
         }
         if (musicList && musicList.length > 0) {
             musicList.forEach((music: { song: string; song_id: any; }) => {
-                music.song = `${config.url}/music/${music.song_id}.mp3`;
+                music.song = `${process.env.APP_URL}/music/${music.song_id}.mp3`;
             });
             res.json(musicList);
         } else {
@@ -168,7 +168,7 @@ router.post('/for-you', async (req, res) => {
             result.slice(0, 5).map(async (track, index) => {
                 const playlist = await getSongsByBPMRange(Math.floor(Math.random() * 0), Math.floor(Math.random() * 200));
                 playlist.forEach((music: { song: string; song_id: any; }) => {
-                    music.song = `${config.url}/music/${music.song_id}.mp3`;
+                    music.song = `${process.env.APP_URL}/music/${music.song_id}.mp3`;
                 });
                 return {
                     title: `Mix ${index + 1}`,

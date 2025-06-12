@@ -7,3 +7,4 @@ deezar-linux
 deezar-macos
 deezar-win.exe
 tests
+.env
