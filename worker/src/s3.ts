@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** s3.ts
+** File description:
+** Module for managing S3 bucket operations
+*/
 const { S3Client, PutObjectCommand, CreateBucketCommand, GetObjectCommand, HeadBucketCommand } = require("@aws-sdk/client-s3");
 import { logger } from './logger';
 
@@ -53,7 +59,7 @@ export function uploadFile(keyName: string, fileBlob: string) {
         });
 }
 
-export function downloadFile(keyName: string): Promise<Buffer> {
+export async function downloadFile(keyName: string): Promise<Buffer> {
     const downloadParams = {
         Bucket: bucketName,
         Key: keyName,

@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** logger.ts
+** File description:
+** Logger module using Winston for structured logging
+*/
 import winston from 'winston';
 
 const logger = winston.createLogger({

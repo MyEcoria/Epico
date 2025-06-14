@@ -1,6 +1,11 @@
+/*
+** EPITECH PROJECT, 2025
+** mail.ts
+** File description:
+** Mail module for sending emails with Nodemailer
+*/
 import nodemailer from 'nodemailer';
 import path from 'path';
-import fs from 'fs';
 import { logger } from './logger';
 
 const transporter = nodemailer.createTransport({

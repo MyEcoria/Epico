@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** users.ts
+** File description:
+** User management routes
+*/
 import express from 'express';
 import { createUser, getUserByCode, changeToVerif, checkPassword, add_cookie, getUserInfoByCookie } from '../modules/db';
 import sendMail from '../modules/mail';

@@ -1,10 +1,15 @@
+/*
+** EPITECH PROJECT, 2025
+** bpm.ts
+** File description:
+** Module for analyzing BPM (Beats Per Minute) of audio buffers
+*/
 import MusicTempo from 'music-tempo';
 import { logger } from './logger';
 var AudioContext = require("web-audio-api").AudioContext;
 
 export async function analyseBpm2(buffer: any): Promise<number> {
   var audioData: number[] = [];
-  // Take the average of the two channels
   if (buffer.numberOfChannels == 2) {
     var channel1Data = buffer.getChannelData(0);
     var channel2Data = buffer.getChannelData(1);

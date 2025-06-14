@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** confirm.ts
+** File description:
+** Middleware to confirm user ID format
+*/
 import { isUUID } from "../../modules/utils";
 
 export default async (req: any, res: any, next: any) => {

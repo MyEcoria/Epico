@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** env.d.ts
+** File description:
+** Type definitions for environment variables
+*/
 declare namespace NodeJS {
   interface ProcessEnv {
     DB_HOST: string;

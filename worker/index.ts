@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** index.ts
+** File description:
+** Worker entry point for processing music downloads
+*/
 import Queue from 'bull';
 import * as dotenv from 'dotenv';
 dotenv.config();

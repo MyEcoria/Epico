@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** bull.ts
+** File description:
+** Bull module for managing download queue
+*/
 import Queue from 'bull';
 
 export const downloadQueue = new Queue(

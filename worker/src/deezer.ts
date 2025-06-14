@@ -1,8 +1,12 @@
+/*
+** EPITECH PROJECT, 2025
+** deezer.ts
+** File description:
+** Module to handle Deezer API interactions for music management
+*/
 import axios from 'axios';
-import fs from 'fs';
 import { createMusic, existMusic, updateBmTofMusic } from './db';
 import { analyseBpm } from './bpm';
-import { sha256 } from 'js-sha256';
 import { v4 as uuidv4 } from 'uuid';
 import { uploadFile } from './s3';
 import { logger } from './logger';

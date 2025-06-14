@@ -8,11 +8,13 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_OPTIONS=--openssl-legacy-provider ts-node index.ts"
+    "start": "NODE_OPTIONS=--openssl-legacy-provider ts-node index.ts",
+    "build": "npx tsc"
   },
   "dependencies": {
     "bull": "^4.16.5",
     "dotenv": "^16.5.0",
+    "music-tempo": "^1.0.3",
     "ts-node": "^10.9.2"
   }
 }
