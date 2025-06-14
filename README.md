@@ -67,3 +67,13 @@ Deezar est une application de streaming musical qui permet de rechercher, télé
 Documentez ici les évolutions et mises à jour du projet.
 
 ## Auteur
+
+## Utilisation avec Docker
+
+1. Construisez et lancez tous les services :
+   ```sh
+   docker-compose up --build
+   ```
+
+L'application sera disponible sur `http://localhost:8000`.
+La base de données est initialisée automatiquement à partir du fichier `schema.sql` lors du premier démarrage des conteneurs.
