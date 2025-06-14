@@ -11,4 +11,4 @@ FROM node:20-alpine
 WORKDIR /app
 COPY --from=build /app /app
 EXPOSE 8000
-CMD ["node", "dist/index.js"]
+CMD ["node", "--openssl-legacy-provider", "dist/index.js"]
