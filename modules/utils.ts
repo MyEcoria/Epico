@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** utils.ts
+** File description:
+** Utility functions for validation and string manipulation
+*/
 export function isEpitechEmailRegex(email: string) {
     return /^[a-zA-Z0-9._%+-]+@epitech\.eu$/i.test(email);
 }

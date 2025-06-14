@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** register.ts
+** File description:
+** Middleware to validate registration request
+*/
 import { isEpitechEmailRegex, isValidPassword } from "../../modules/utils";
 
 export default async (req: any, res: any, next: any) => {

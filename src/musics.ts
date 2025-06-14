@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** musics.ts
+** File description:
+** Music routes for handling music-related operations
+*/
 import express from 'express';
 import { getMusic, get_cookie, add_listen_history, getLastFiveListenedSongs, getHistoryByToken, getTopRecentSongs, getFlowTrain, getSongsByBPMRange, createModifyOrCreateLikedSong, isLikeSong, fromArtistYouFollow, yourArtist, countLikedSongs, countFollowArtists } from '../modules/db';
 import { search_and_download, getCoverUrl } from '../modules/deezer';
@@ -8,7 +14,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { downloadFile } from '../modules/s3';
 
 import musicIdMiddleware from './middleware/music_id';
-import { sha256 } from 'js-sha256';
 
 const router = Router();
 router.use(express.json());

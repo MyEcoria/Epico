@@ -1,66 +1,79 @@
 # Deezar
 
-Deezar is a music streeming application that allows you to search, download, and manage music.
+Deezar est une application de streaming musical qui permet de rechercher, télécharger et gérer de la musique.
 
-## Features
+## Fonctionnalités
 
-- Search and download music from Deezer
-- Manage user accounts and authentication
-- Log user activities
-- Send email notifications
+- Rechercher et télécharger de la musique via l'API de Deezer.
+- Gestion des comptes utilisateurs et authentification.
+- Envoi de notifications par e-mail.
+- Analyse automatique du BPM des morceaux.
+- Historique d'écoute et recommandations personnalisées.
 
 ## Installation
 
-1. Clone the repository:
+1. Clonez le dépôt :
     ```sh
-    git clone https://github.com/yourusername/deezar.git
-    cd deezar
+    git clone https://github.com/MyEcoria/deezer_scrap.git
+    cd deezer_scrap
     ```
 
-2. Install dependencies:
+2. Installez les dépendances :
     ```sh
     npm install
     ```
 
-3. Configure the application:
-    - Copy the sample configuration files and update them with your settings:
-        ```sh
-        cp config/db.sample config/db.json
-        cp config/smtp.sample config/smtp.json
-        cp config/general.sample config/general.json
-        ```
+3. Configurez l'application :
+   - Renommez le fichier `.env.exemple` en `.env` et modifiez les variables d'environnement selon vos besoins.
 
-4. Build the project:
+4. Compilez le projet :
     ```sh
     npm run build
     ```
 
-5. Start the application:
+5. Démarrez l'application :
     ```sh
     npm start
     ```
 
-6. To build the application:
-    ```
+6. Pour empaqueter l'application (Linux, macOS, Windows) :
+    ```sh
     npm run pkg
     ```
 
-## Usage
+## Utilisation
 
-### API Endpoints
+### Endpoints API
 
-- **User Registration**: `POST /user/register`
-- **User Login**: `POST /user/login`
-- **Confirm User**: `GET /user/confirm/:id`
-- **Search Music**: `POST /music/search`
-- **Get Music**: `GET /music/:id`
+- **Inscription utilisateur** : `POST /user/register`
+- **Connexion utilisateur** : `POST /user/login`
+- **Confirmation d'inscription** : `GET /user/confirm/:id`
+- **Recherche de musique** : `POST /music/search`
+- **Lecture de musique** : `GET /music/:id.mp3`
 
 ## Configuration
 
-- **Database Configuration**: `config/db.json`
-- **SMTP Configuration**: `config/smtp.json`
-- **General Configuration**: `config/general.json`
+- **Base de données** : Configurez la connexion dans le fichier `.env`.
+- **SMTP** : Paramétrez l'envoi des e-mails via les variables d'environnement.
+- **Stockage S3** : Configurez les paramètres S3 dans le fichier `.env`.
 
-## Author
+## Structure du projet
 
-Cacaland
+- Le code source se trouve dans le dossier `src` et les fonctions utilitaires dans le dossier `modules`.
+- Les définitions de types TypeScript se trouvent dans le dossier `types`.
+
+## Journal des modifications
+
+Documentez ici les évolutions et mises à jour du projet.
+
+## Auteur
+
+## Utilisation avec Docker
+
+1. Construisez et lancez tous les services :
+   ```sh
+   docker-compose up --build
+   ```
+
+L'application sera disponible sur `http://localhost:8000`.
+La base de données est initialisée automatiquement à partir du fichier `schema.sql` lors du premier démarrage des conteneurs.

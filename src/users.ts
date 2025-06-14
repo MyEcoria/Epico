@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** users.ts
+** File description:
+** User management routes
+*/
 import express from 'express';
 import { createUser, getUserByCode, changeToVerif, checkPassword, add_cookie, getUserInfoByCookie } from '../modules/db';
 import sendMail from '../modules/mail';
@@ -36,6 +42,7 @@ router.post('/login', loginMiddleware, async (req, res) => {
         await add_cookie(email, uuid);
         res.json({status: "ok", email: email, cookie: uuid});
     } else {
+        console.error(`Login failed for email: ${email}`);
         res.json({status: "error", email: email});
     }
 });

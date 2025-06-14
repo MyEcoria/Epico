@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** login.ts
+** File description:
+** Middleware to validate login request
+*/
 import { isEpitechEmailRegex, isValidPassword } from "../../modules/utils";
 
 export default async (req: any, res: any, next: any) => {

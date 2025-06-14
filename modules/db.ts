@@ -1,3 +1,9 @@
+/*
+** EPITECH PROJECT, 2025
+** db.ts
+** File description:
+** Database module for managing music and user data
+*/
 import mysql from 'mysql2/promise';
 import { logger } from './logger';
 

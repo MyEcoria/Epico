@@ -2,9 +2,9 @@
 ** EPITECH PROJECT, 2025
 ** s3.ts
 ** File description:
-** S3 module for managing file uploads and downloads
+** Module for managing S3 bucket operations
 */
-const { S3Client, CreateBucketCommand, GetObjectCommand, HeadBucketCommand } = require("@aws-sdk/client-s3");
+const { S3Client, PutObjectCommand, CreateBucketCommand, GetObjectCommand, HeadBucketCommand } = require("@aws-sdk/client-s3");
 import { logger } from './logger';
 
 const client = new S3Client({
@@ -40,6 +40,24 @@ const run = async () => {
 };
 
 run();
+
+export function uploadFile(keyName: string, fileBlob: string) {
+    const uploadParams = {
+        Bucket: bucketName,
+        Key: keyName,
+        Body: fileBlob,
+    };
+
+    return client.send(new PutObjectCommand(uploadParams))
+        .then((data: import("@aws-sdk/client-s3").PutObjectCommandOutput) => {
+            logger.log({ level: 'debug', message: `Fichier ${keyName} uploadé avec succès.` });
+            return data;
+        })
+        .catch((err: any) => {
+            logger.log({ level: 'error', message: `Erreur lors de l'upload du fichier ${keyName} : ${err}` });
+            throw err;
+        });
+}
 
 export async function downloadFile(keyName: string): Promise<Buffer> {
     const downloadParams = {

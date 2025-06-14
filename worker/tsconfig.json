@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./dist",
+    "rootDirs": ["./src", "./modules"],
+    "typeRoots": ["./node_modules/@types", "./types"],
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*", "types/**/*", "index.ts"],
+}
