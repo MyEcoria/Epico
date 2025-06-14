@@ -31,7 +31,7 @@ services:
       EMAIL_USER: contact@myecoria.com
       EMAIL_PASSWORD: password
       EMAIL_FROM: contact@myecoria.com
-      DEEZER_KEY: 31ba52d78497a4c02f895c02788f7c38641947e4c082917ad335f9e2a5fa0aa4d528080aa53ea1ea733bac0be7617c008196ca9a22266921de5355b253b2806c63fe7356311f9106cc14980fd634bb4d6a31e135a6779911f0c3fe000c5bb1c7
+      DEEZER_KEY: arl_token
 
 
   worker:
