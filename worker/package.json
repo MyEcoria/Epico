@@ -1,0 +1,18 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "worker of epico",
+  "license": "MIT",
+  "author": "MyEcoria",
+  "type": "commonjs",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider ts-node index.ts"
+  },
+  "dependencies": {
+    "bull": "^4.16.5",
+    "dotenv": "^16.5.0",
+    "ts-node": "^10.9.2"
+  }
+}

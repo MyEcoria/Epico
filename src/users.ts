@@ -36,6 +36,7 @@ router.post('/login', loginMiddleware, async (req, res) => {
         await add_cookie(email, uuid);
         res.json({status: "ok", email: email, cookie: uuid});
     } else {
+        console.error(`Login failed for email: ${email}`);
         res.json({status: "error", email: email});
     }
 });
