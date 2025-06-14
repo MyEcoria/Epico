@@ -32,7 +32,7 @@
     "start": "NODE_OPTIONS=--openssl-legacy-provider ts-node index.ts",
     "clean": "rm -rf node_modules && rm -rf package-lock.json && rm -f *.log && rm -rf dist && rm -f deezar-linux && rm -f deezar-macos && rm -f deezar-win.exe && rm -f deezar-macos",
     "build": "npx tsc && cp -r assets dist/",
-    "nexe:linux": "nexe dist/index.js -t linux-x64-20.16.0 -o deezar-linux --build",
+    "nexe:linux": "nexe dist/index.js -t linux-x64-24.2.0 -o deezar-linux --build --verbose",
     "nexe:macos": "nexe dist/index.js -t mac-x64-20.16.0 -o deezar-macos --build",
     "nexe:win": "nexe dist/index.js -t windows-x64-20.16.0 -o deezar-win.exe --build",
     "nexe": "npm run build && npm run nexe:linux && npm run nexe:macos && npm run nexe:win"

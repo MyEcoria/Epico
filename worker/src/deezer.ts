@@ -66,6 +66,7 @@ export async function add_music(api: any, song_id: any) {
             try {
                 const btm = await analyseBpm(trackWithMetadata);
                 await updateBmTofMusic(track.SNG_ID, btm);
+                return btm;
             } catch (err) {
                 logger.log({ level: 'error', message: `BPM analysis failed for song ID ${song_id}: ${(err as any).message}` });
             }

@@ -32,11 +32,12 @@ const downloadQueue = new Queue(
 downloadQueue.process(process.env.CONCURRENCY ? parseInt(process.env.CONCURRENCY) : 5, async (job) => {
     logger.log({ level: 'info', message: `Processing job ${job.id} with data: ${JSON.stringify(job.data)}` });
 
-    await add_music(api, job.data.song_id)
-        .then(() => {
-            logger.log({ level: 'info', message: `Job ${job.id} completed successfully.` });
-        })
-        .catch((error) => {
-            logger.log({ level: 'error', message: `Job ${job.id} failed: ${error.message}` });
-        });
+    try {
+        const result = await add_music(api, job.data.song_id);
+        logger.log({ level: 'info', message: `Job ${job.id} completed successfully.` });
+        return { success: true, result };
+    } catch (error: any) {
+        logger.log({ level: 'error', message: `Job ${job.id} failed: ${error.message}` });
+        throw error;
+    }
 });
