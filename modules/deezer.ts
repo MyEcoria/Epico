@@ -98,16 +98,16 @@ export async function search_and_download(api: any, query: any) {
         })();
 
         // Process albums in the background
-        // (async () => {
-        //     for (let i = 0; i < search.ALBUM.data.length; i++) {
-        //         const album_id = search.ALBUM.data[i].ALB_ID;
-        //         try {
-        //             await download_album(api, album_id);
-        //         } catch (error) {
-        //             console.error(`Failed to download album for album ID ${album_id}: ${(error as any).message}`);
-        //         }
-        //     }
-        // })();
+        (async () => {
+            for (let i = 0; i < search.ALBUM.data.length; i++) {
+                const album_id = search.ALBUM.data[i].ALB_ID;
+                try {
+                    await download_album(api, album_id);
+                } catch (error) {
+                    console.error(`Failed to download album for album ID ${album_id}: ${(error as any).message}`);
+                }
+            }
+        })();
 
         return search;
     } catch (error) {
@@ -122,7 +122,7 @@ export async function download_album(api: any, album_id: any) {
         for (let i = 0; i < album.data.length; i++) {
             const song_id = album.data[i].SNG_ID;
             try {
-                await add_music(api, song_id);
+                downloadQueue.add({ song_id });
             } catch (error) {
                 logger.log({ level: 'error', message: `Failed to add music for song ID ${song_id}: ${(error as any).message}` });
             }
