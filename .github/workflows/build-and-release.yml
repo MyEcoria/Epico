@@ -4,8 +4,11 @@ on:
   push:
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  build_and_publish:
+  publish:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -24,7 +27,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Setup Node.js v20
         uses: actions/setup-node@v3
         with:
           node-version: '20'
@@ -32,44 +35,16 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build binaries
+      - name: Build project
         run: |
           npm run build
           npm run pkg:${{ matrix.target }}
 
-      - name: Prepare release upload URL
-        id: prep_release
-        uses: actions/github-script@v6
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            // Fetch latest release
-            const { data: release } = await github.rest.repos.getLatestRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            });
-            // Delete existing asset if present
-            const assets = await github.rest.repos.listReleaseAssets({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.id
-            });
-            for (const asset of assets.data) {
-              if (asset.name === '${{ matrix.asset }}') {
-                await github.rest.repos.deleteReleaseAsset({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  asset_id: asset.id
-                });
-              }
-            }
-            // Return upload URL with placeholder
-            return release.upload_url;
-
-      - name: Upload binary asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ steps.prep_release.outputs.result }}
-          asset_path: ./${{ matrix.output }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./${{ matrix.output }}
           asset_name: ${{ matrix.asset }}
-          asset_content_type: application/octet-stream
+          tag: ${{ github.ref }}
+          overwrite: true
