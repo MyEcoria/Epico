@@ -1,0 +1,75 @@
+name: Build and Release Binaries
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - target: linux
+            asset: deezar-linux
+            output: deezar-linux
+          - target: macos
+            asset: deezar-macos
+            output: deezar-macos
+          - target: win
+            asset: deezar-win.exe
+            output: deezar-win.exe
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build binaries
+        run: |
+          npm run build
+          npm run pkg:${{ matrix.target }}
+
+      - name: Prepare release upload URL
+        id: prep_release
+        uses: actions/github-script@v6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: release } = await github.rest.repos.getLatestRelease({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            const upload_url = release.upload_url.split('{')[0];
+            const assets = await github.rest.repos.listReleaseAssets({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              release_id: release.id
+            });
+            for (const asset of assets.data) {
+              if (asset.name === '${{ matrix.asset }}') {
+                await github.rest.repos.deleteReleaseAsset({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  asset_id: asset.id
+                });
+              }
+            }
+            return upload_url;
+
+      - name: Upload binary asset
+        uses: actions/upload-release-asset@v1
+        with:
+          upload_url: ${{ steps.prep_release.outputs.result }}
+          asset_path: ./${{ matrix.output }}
+          asset_name: ${{ matrix.asset }}
+          asset_content_type: application/octet-stream

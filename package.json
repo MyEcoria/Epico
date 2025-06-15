@@ -1,8 +1,28 @@
 {
+  "name": "deezar",
+  "version": "1.0.0",
+  "description": "",
+  "main": "node/index.js",
+  "bin": {
+    "deezar": "dist/index.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf node_modules && rm -rf package-lock.json && rm -f *.log && rm -rf dist && rm -f deezar-linux && rm -f deezar-macos && rm -f deezar-win.exe",
+    "build": "npx tsc && cp -r assets dist/",
+    "pkg:linux": "pkg dist/index.js --targets node20-linux-x64 --output deezar-linux",
+    "pkg:macos": "pkg dist/index.js --targets node20-macos-x64 --output deezar-macos",
+    "pkg:win":   "pkg dist/index.js --targets node20-win-x64 --output deezar-win.exe",
+    "pkg:all":   "npm run build && npm run pkg:linux && npm run pkg:macos && npm run pkg:win",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider ts-node index.ts"
+  },
+  "author": "Pierric Buchez",
+  "license": "MIT",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.758.0",
     "@bull-board/api": "^6.10.1",
     "@bull-board/express": "^6.10.1",
+    "@yao-pkg/pkg": "^6.5.1",
     "aws-sdk": "^2.1692.0",
     "bull": "^4.16.5",
     "bull-board": "^1.7.2",
@@ -21,25 +41,6 @@
     "web-audio-api": "^0.2.2",
     "winston": "^3.17.0"
   },
-  "name": "deezar",
-  "version": "1.0.0",
-  "main": "node/index.js",
-  "bin": {
-    "deezar": "dist/index.js"
-  },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_OPTIONS=--openssl-legacy-provider ts-node index.ts",
-    "clean": "rm -rf node_modules && rm -rf package-lock.json && rm -f *.log && rm -rf dist && rm -f deezar-linux && rm -f deezar-macos && rm -f deezar-win.exe && rm -f deezar-macos",
-    "build": "npx tsc && cp -r assets dist/",
-    "nexe:linux": "nexe dist/index.js -t linux-x64-24.2.0 -o deezar-linux --build --verbose",
-    "nexe:macos": "nexe dist/index.js -t mac-x64-20.16.0 -o deezar-macos --build",
-    "nexe:win": "nexe dist/index.js -t windows-x64-20.16.0 -o deezar-win.exe --build",
-    "nexe": "npm run build && npm run nexe:linux && npm run nexe:macos && npm run nexe:win"
-  },
-  "author": "Pierric Buchez",
-  "license": "MIT",
-  "description": "",
   "devDependencies": {
     "@babel/cli": "^7.26.4",
     "@babel/core": "^7.26.9",
@@ -49,15 +50,7 @@
     "@types/nodemailer": "^6.4.17",
     "@types/sqlstring": "^2.3.2",
     "babel-plugin-module-resolver": "^5.0.2",
-    "nexe": "^5.0.0-beta.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"
-  },
-  "pkg": {
-    "targets": [
-      "node-linux-x64",
-      "node-macos-x64",
-      "node-win-x64"
-    ]
   }
 }

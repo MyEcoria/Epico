@@ -9,7 +9,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "NODE_OPTIONS=--openssl-legacy-provider ts-node index.ts",
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "nexe:linux": "nexe dist/index.js -t linux-x64-24.2.0 -o worker --build",
+    "nexe:macos": "nexe dist/index.js -t mac-x64-24.2.0 -o worker --build",
+    "nexe:win": "nexe dist/index.js -t windows-x64-24.2.0 -o worker.exe --build",
+    "nexe": "npm run build && npm run nexe:linux && npm run nexe:macos && npm run nexe:win"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.828.0",
