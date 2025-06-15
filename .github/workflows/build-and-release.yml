@@ -8,20 +8,20 @@ permissions:
   contents: write
 
 jobs:
-  publish:
+  master:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         include:
           - target: linux
-            asset: deezar-linux
-            output: deezar-linux
+            asset: epico-linux
+            output: epico-linux
           - target: macos
-            asset: deezar-macos
-            output: deezar-macos
+            asset: epico-macos
+            output: epico-macos
           - target: win
-            asset: deezar-win.exe
-            output: deezar-win.exe
+            asset: epico-win.exe
+            output: epico-win.exe
 
     steps:
       - name: Checkout code
@@ -45,6 +45,49 @@ jobs:
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           file: ./${{ matrix.output }}
+          asset_name: ${{ matrix.asset }}
+          tag: ${{ github.ref }}
+          overwrite: true
+  
+  worker:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - target: linux
+            asset: worker-linux
+            output: worker-linux
+          - target: macos
+            asset: worker-macos
+            output: worker-macos
+          - target: win
+            asset: worker-win.exe
+            output: worker-win.exe
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js v20
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./worker
+
+      - name: Build project
+        run: |
+          npm run build
+          npm run pkg:${{ matrix.target }}
+        working-directory: ./worker
+
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: ./worker/${{ matrix.output }}
           asset_name: ${{ matrix.asset }}
           tag: ${{ github.ref }}
           overwrite: true

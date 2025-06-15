@@ -8,11 +8,11 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clean": "rm -rf node_modules && rm -rf package-lock.json && rm -f *.log && rm -rf dist && rm -f deezar-linux && rm -f deezar-macos && rm -f deezar-win.exe",
+    "clean": "rm -rf node_modules && rm -rf package-lock.json && rm -f *.log && rm -rf dist && rm -f epico-linux && rm -f epico-macos && rm -f epico-win.exe",
     "build": "npx tsc && cp -r assets dist/",
-    "pkg:linux": "pkg dist/index.js --targets node20-linux-x64 --output deezar-linux --no-progress",
-    "pkg:macos": "pkg dist/index.js --targets node20-macos-x64 --output deezar-macos --no-progress",
-    "pkg:win":   "pkg dist/index.js --targets node20-win-x64 --output deezar-win.exe --no-progress",
+    "pkg:linux": "pkg dist/index.js --targets node20-linux-x64 --output epico-linux --no-progress",
+    "pkg:macos": "pkg dist/index.js --targets node20-macos-x64 --output epico-macos --no-progress",
+    "pkg:win":   "pkg dist/index.js --targets node20-win-x64 --output epico-win.exe --no-progress",
     "pkg:all":   "npm run build && npm run pkg:linux && npm run pkg:macos && npm run pkg:win",
     "start": "NODE_OPTIONS=--openssl-legacy-provider ts-node index.ts"
   },
