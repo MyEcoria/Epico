@@ -16,6 +16,7 @@
     "pkg:all":   "npm run build && npm run pkg:linux && npm run pkg:macos && npm run pkg:win"
   },
   "dependencies": {
+    "@yao-pkg/pkg": "^6.5.1",
     "@aws-sdk/client-s3": "^3.828.0",
     "axios": "^1.10.0",
     "bull": "^4.16.5",
