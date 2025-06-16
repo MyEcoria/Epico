@@ -6,6 +6,7 @@
 */
 import { logger } from './logger';
 import { downloadQueue } from './bull';
+import { existMusic } from './db';
 
 const coverSize = {
     small: '56x56',
@@ -24,8 +25,13 @@ export async function search_and_download(api: any, query: any) {
 
         for (let i = 0; i < search.TRACK.data.length; i++) {
             const song_id = search.TRACK.data[i].SNG_ID;
+            const exists = await existMusic(song_id);
+
+            if (exists) {
+                continue;
+            }
             try {
-                downloadQueue.add({ song_id });
+                downloadQueue.add({ song_id }, { priority: 1, jobId: `song-${song_id}` });
             } catch (error) {
                 logger.log({ level: 'error', message: `Failed to add music for song ID ${song_id}: ${(error as any).message}` });
             }
@@ -54,8 +60,13 @@ export async function download_album(api: any, album_id: any) {
         const album = await api.getAlbumTracks(album_id);
         for (let i = 0; i < album.data.length; i++) {
             const song_id = album.data[i].SNG_ID;
+            const exists = await existMusic(song_id);
+
+            if (exists) {
+                continue;
+            }
             try {
-                downloadQueue.add({ song_id });
+                downloadQueue.add({ song_id }, { priority: 10, jobId: `song-${song_id}` });
             } catch (error) {
                 logger.log({ level: 'error', message: `Failed to add music for song ID ${song_id}: ${(error as any).message}` });
             }

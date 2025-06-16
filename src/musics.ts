@@ -25,13 +25,17 @@ router.use(express.json());
 router.post('/search', async (req, res) => {
     const { name } = req.body;
     const result = await search_and_download(api, sqlstring.escape(name));
+    const songIds = result.TRACK.data.map((song: any) => song.SNG_ID);
+    const dbMusics = await Promise.all(songIds.map(async (id: string) => await getMusic(id)));
+    const downloadedSet = new Set(dbMusics.filter(Boolean).map((music: any) => music.song_id));
     const songsArray = result.TRACK.data.map((song: any) => ({
         song_id: song.SNG_ID,
         title: song.SNG_TITLE,
         auteur: song.ART_NAME,
         cover: getCoverUrl(song.ALB_PICTURE, 'medium'),
         duration: song.DURATION,
-        song: `${process.env.APP_URL}/music/${song.SNG_ID}.mp3`
+        song: `${process.env.APP_URL}/music/${song.SNG_ID}.mp3`,
+        downloaded: downloadedSet.has(song.SNG_ID)
     }));
     res.json(songsArray);
 });
