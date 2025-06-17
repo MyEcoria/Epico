@@ -1,4 +1,5 @@
-# Epico
+![Epico Logo](assets/logo.png)
+---
 
 Epico is a TypeScript based music streaming app that relies on the Deezer API.
 It lets you search for tracks, download them and manage your music library.
