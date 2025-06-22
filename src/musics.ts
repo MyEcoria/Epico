@@ -5,7 +5,7 @@
 ** Music routes for handling music-related operations
 */
 import express from 'express';
-import { getMusic, get_cookie, add_listen_history, getLastFiveListenedSongs, getHistoryByToken, getTopRecentSongs, getFlowTrain, getSongsByBPMRange, createModifyOrCreateLikedSong, isLikeSong, fromArtistYouFollow, yourArtist, countLikedSongs, countFollowArtists } from '../modules/db';
+import { getMusic, get_cookie, add_listen_history, getLastFiveListenedSongs, getHistoryByToken, getTopRecentSongs, getFlowTrain, getSongsByBPMRange, createModifyOrCreateLikedSong, isLikeSong, fromArtistYouFollow, yourArtist, countLikedSongs, countFollowArtists, getMusicsByAuthor } from '../modules/db';
 import { search_and_download, getCoverUrl } from '../modules/deezer';
 import { Router } from 'express';
 import * as api from 'd-fi-core';
@@ -28,6 +28,7 @@ router.post('/search', async (req, res) => {
     const songIds = result.TRACK.data.map((song: any) => song.SNG_ID);
     const dbMusics = await Promise.all(songIds.map(async (id: string) => await getMusic(id)));
     const downloadedSet = new Set(dbMusics.filter(Boolean).map((music: any) => music.song_id));
+
     const songsArray = result.TRACK.data.map((song: any) => ({
         song_id: song.SNG_ID,
         title: song.SNG_TITLE,
@@ -37,7 +38,20 @@ router.post('/search', async (req, res) => {
         song: `${process.env.APP_URL}/music/${song.SNG_ID}.mp3`,
         downloaded: downloadedSet.has(song.SNG_ID)
     }));
-    res.json(songsArray);
+
+    const artistsArray = result.ARTIST.data.map((artist: any) => ({
+        artist_id: artist.ART_ID,
+        name: artist.ART_NAME,
+        cover: getCoverUrl(artist.ART_PICTURE, 'medium')
+    }));
+
+    const albumsArray = result.ALBUM.data.map((album: any) => ({
+        album_id: album.ALB_ID,
+        name: album.ALB_TITLE,
+        cover: getCoverUrl(album.ALB_PICTURE, 'medium')
+    }));
+
+    res.json({ songsArray, artistsArray, albumsArray });
 });
 
 router.get('/:id.mp3', musicIdMiddleware, async (req, res) => {
@@ -250,6 +264,67 @@ router.post('/count-follow', async (req, res) => {
     }
     else {
         res.status(401).json({status: "error", message: "Unauthorized"});
+    }
+});
+
+router.get('/album/:id', musicIdMiddleware, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const albumData = await api.getAlbumInfo(id);
+        if (!albumData) {
+            res.status(404).json({ status: 'error', message: 'Album not found' });
+            return;
+        }
+        res.json(albumData);
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: 'Unable to fetch album' });
+    }
+});
+
+router.get('/artist/:id', musicIdMiddleware, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const artistData = await api.getArtistInfo(id);
+        if (!artistData) {
+            res.status(404).json({ status: 'error', message: 'Artist not found' });
+            return;
+        }
+        res.json(artistData);
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: 'Unable to fetch artist' });
+    }
+});
+
+router.get('/album_track/:id', musicIdMiddleware, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const tracks = await api.getAlbumTracks(id);
+        if (!tracks) {
+            res.status(404).json({ status: 'error', message: 'Tracks not found' });
+            return;
+        }
+        res.json(tracks);
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: 'Unable to fetch tracks' });
+    }
+});
+
+router.get('/artist_tracks/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const artistTracks = await getMusicsByAuthor(id);
+        if (!artistTracks) {
+            res.status(404).json({ status: 'error', message: 'Artist tracks not found' });
+            return;
+        }
+        
+        artistTracks.forEach((track: { song: string; song_id: any; }) => {
+            track.song = `${process.env.APP_URL}/music/${track.song_id}.mp3`;
+        });
+        
+        res.json(artistTracks);
+    } catch (err) {
+        res.status(500).json({ status: 'error', message: 'Unable to fetch artist tracks' });
     }
 });
 

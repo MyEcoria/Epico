@@ -501,3 +501,14 @@ export async function countFollowArtists(email: string) {
     return false;
   }
 }
+
+export async function getMusicsByAuthor(auteur: string) {
+  try {
+    const sql = 'SELECT * FROM musics WHERE auteur = ?';
+    const [result]: any = await pool.execute(sql, [auteur]);
+    return result;
+  } catch (error) {
+    logger.log({ level: 'error', message: `Erreur lors de la récupération des musiques de l'auteur : ${(error as any).message}` });
+    return false;
+  }
+}
