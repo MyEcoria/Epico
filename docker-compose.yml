@@ -3,84 +3,92 @@ services:
   app:
     build: .
     ports:
-      - "8000:8000"
+      - "${APP_PORT}:${APP_PORT}"
     depends_on:
       - db
       - redis
-      - s3mock
+      - minio
     restart: always
     environment:
       DB_HOST: db
       DB_PORT: 3306
-      DB_NAME: deezer
-      DB_USER: root
-      DB_PASSWORD: example
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      BULL_NAME: downloadQueue
-      ACCESS_URL: http://s3mock:9090
-      S3_ACCESS_KEY_ID: test
-      S3_SECRET_ACCESS_KEY: test
-      S3_REGION: us-east-1
-      S3_BUCKET_NAME: deezar
-      APP_PORT: 8000
-      LOGO_URL: https://www.deezer.com/img/deezer-icon-white-logo.svg
-      APP_URL: http://192.168.1.53:8000
-      EMAIL_HOST: pro3.mail.ovh.net
+      BULL_NAME: ${BULL_NAME}
+      ACCESS_URL: http://minio:9000
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_REGION: ${S3_REGION}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      APP_PORT: ${APP_PORT}
+      APP_NAME: ${APP_NAME}
+      LOGO_URL: ${LOGO_URL}
+      APP_URL: ${APP_URL}
+      EMAIL_HOST: ${EMAIL_HOST}
       EMAIL_PORT: 587
-      EMAIL_USER: contact@myecoria.com
-      EMAIL_PASSWORD: password
-      EMAIL_FROM: contact@myecoria.com
-      DEEZER_KEY: arl_token
-
+      EMAIL_USER: ${EMAIL_USER}
+      EMAIL_PASSWORD: ${EMAIL_PASSWORD}
+      EMAIL_FROM: ${EMAIL_FROM}
+      DEEZER_KEY: ${DEEZER_KEY}
 
   worker:
     build: ./worker
     depends_on:
       - db
       - redis
-      - s3mock
+      - minio
     restart: always
     environment:
       DB_HOST: db
       DB_PORT: 3306
-      DB_NAME: deezer
-      DB_USER: root
-      DB_PASSWORD: example
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
       REDIS_HOST: redis
       REDIS_PORT: 6379
-      BULL_NAME: downloadQueue
+      BULL_NAME: ${BULL_NAME}
       CONCURRENCY: 5
-      ACCESS_URL: http://s3mock:9090
-      S3_ACCESS_KEY_ID: test
-      S3_SECRET_ACCESS_KEY: test
-      S3_REGION: us-east-1
-      S3_BUCKET_NAME: deezar
-      DEEZER_KEY: arl_token
+      ACCESS_URL: http://minio:9000
+      S3_ACCESS_KEY_ID: ${S3_ACCESS_KEY_ID}
+      S3_SECRET_ACCESS_KEY: ${S3_SECRET_ACCESS_KEY}
+      S3_REGION: ${S3_REGION}
+      S3_BUCKET_NAME: ${S3_BUCKET_NAME}
+      DEEZER_KEY: ${DEEZER_KEY}
 
   db:
     image: mariadb:11
     environment:
-      MYSQL_ROOT_PASSWORD: example
-      MYSQL_DATABASE: deezer
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
       - db_data:/var/lib/mysql
       - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
     ports:
       - "3307:3306"
     restart: always
+    command: --default-authentication-plugin=mysql_native_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   redis:
     image: redis:alpine
-    ports:
-      - "6389:6379"
     restart: always
 
-  s3mock:
-    image: adobe/s3mock:latest
+  minio:
+    image: minio/minio:latest
     ports:
-      - "9091:9090"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    environment:
+      MINIO_ROOT_USER: ${S3_ACCESS_KEY_ID}
+      MINIO_ROOT_PASSWORD: ${S3_SECRET_ACCESS_KEY}
+    command: server /data --console-address ":9001"
     restart: always
 
 volumes:
   db_data:
+  minio_data:
