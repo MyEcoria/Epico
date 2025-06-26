@@ -21,6 +21,7 @@ export async function createMusic(
   song_id: string,
   title: string,
   auteur: string,
+  artist_id: string,
   album: string,
   genre: string,
   dure: string,
@@ -30,8 +31,8 @@ export async function createMusic(
   rank: number
 ) {
   try {
-    const sql = 'INSERT INTO musics (song_id, title, auteur, album, genre, dure, date, song, cover, rank) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    await pool.execute(sql, [song_id, title, auteur, album, genre, dure, date, song, cover, rank]);
+    const sql = 'INSERT INTO musics (song_id, title, auteur, artist_id, album, genre, dure, date, song, cover, rank) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    await pool.execute(sql, [song_id, title, auteur, artist_id,album, genre, dure, date, song, cover, rank]);
     logger.log({ level: 'info', message: `L'adresse ${title} vient d'être enregistrée` });
     return true;
   } catch (error) {

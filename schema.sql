@@ -17,16 +17,6 @@
 /*M!100616 SET @OLD_NOTE_VERBOSITY=@@NOTE_VERBOSITY, NOTE_VERBOSITY=0 */;
 
 --
--- Current Database: `deezer`
---
-
-/*!40000 DROP DATABASE IF EXISTS `deezer`*/;
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `deezer` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci */;
-
-USE `deezer`;
-
---
 -- Table structure for table `liked_song`
 --
 
@@ -63,7 +53,7 @@ CREATE TABLE `listen_history` (
   KEY `idx_token` (`token`),
   CONSTRAINT `fk_listen_history_music` FOREIGN KEY (`music_id`) REFERENCES `musics` (`song_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `fk_listen_history_user` FOREIGN KEY (`email`) REFERENCES `users` (`email`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,9 +76,10 @@ CREATE TABLE `musics` (
   `cover` text DEFAULT NULL,
   `rank` bigint(20) unsigned DEFAULT NULL,
   `BPM` bigint(20) unsigned DEFAULT NULL,
+  `artist_id` varchar(100) NOT NULL,
   UNIQUE KEY `song_id` (`song_id`),
   KEY `id` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1049 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -108,7 +99,7 @@ CREATE TABLE `users` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`),
   UNIQUE KEY `code` (`code`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,8 +115,12 @@ CREATE TABLE `users_token` (
   `cookie` text NOT NULL,
   `date` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping routines for database 'deezer'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -136,4 +131,4 @@ CREATE TABLE `users_token` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*M!100616 SET NOTE_VERBOSITY=@OLD_NOTE_VERBOSITY */;
 
--- Dump completed on 2025-06-12 15:29:38
+-- Dump completed on 2025-06-26 22:34:24

@@ -5,7 +5,7 @@
 ** Music routes for handling music-related operations
 */
 import express from 'express';
-import { getMusic, get_cookie, add_listen_history, getLastFiveListenedSongs, getHistoryByToken, getTopRecentSongs, getFlowTrain, getSongsByBPMRange, createModifyOrCreateLikedSong, isLikeSong, fromArtistYouFollow, yourArtist, countLikedSongs, countFollowArtists, getMusicsByAuthor } from '../modules/db';
+import { getMusic, get_cookie, add_listen_history, getLastFiveListenedSongs, getHistoryByToken, getTopRecentSongs, getFlowTrain, getSongsByBPMRange, createModifyOrCreateLikedSong, isLikeSong, fromArtistYouFollow, yourArtist, countLikedSongs, countFollowArtists, getMusicsByAuthor, getLikedSongsByUser } from '../modules/db';
 import { search_and_download, getCoverUrl } from '../modules/deezer';
 import { Router } from 'express';
 import * as api from 'd-fi-core';
@@ -238,6 +238,7 @@ router.post('/is-liked', async (req, res) => {
 router.post('/your-artist', async (req, res) => {
     const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
     const cookie_info = cookie ? await get_cookie(cookie) : null;
+    console.log(await yourArtist(cookie_info, 7));
     if (cookie_info) {
         res.json({status: "ok", artist: await yourArtist(cookie_info, 7)});
     } else {
@@ -325,6 +326,24 @@ router.get('/artist_tracks/:id', async (req, res) => {
         res.json(artistTracks);
     } catch (err) {
         res.status(500).json({ status: 'error', message: 'Unable to fetch artist tracks' });
+    }
+});
+
+router.get('/liked', async (req, res) => {
+    const cookie = Array.isArray(req.headers.token) ? req.headers.token[0] : req.headers.token;
+    const cookie_info = cookie ? await get_cookie(cookie) : null;
+    if (cookie_info) {
+        const likedSongs = await getLikedSongsByUser(cookie_info);
+        if (likedSongs && likedSongs.length > 0) {
+            likedSongs.forEach((music: { song: string; song_id: any; }) => {
+                music.song = `${process.env.APP_URL}/music/${music.song_id}.mp3`;
+            });
+            res.json(likedSongs);
+        } else {
+            res.json({status: "error", message: "No liked songs found"});
+        }
+    } else {
+        res.status(401).json({status: "error", message: "Unauthorized"});
     }
 });
 

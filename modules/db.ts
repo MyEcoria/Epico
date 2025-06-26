@@ -21,6 +21,7 @@ export async function createMusic(
   song_id: string,
   title: string,
   auteur: string,
+  artist_id: string,
   album: string,
   genre: string,
   dure: string,
@@ -30,8 +31,8 @@ export async function createMusic(
   rank: number
 ) {
   try {
-    const sql = 'INSERT INTO musics (song_id, title, auteur, album, genre, dure, date, song, cover, rank) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    await pool.execute(sql, [song_id, title, auteur, album, genre, dure, date, song, cover, rank]);
+    const sql = 'INSERT INTO musics (song_id, title, auteur, artist_id, album, genre, dure, date, song, cover, rank) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    await pool.execute(sql, [song_id, title, auteur, artist_id,album, genre, dure, date, song, cover, rank]);
     logger.log({ level: 'info', message: `L'adresse ${title} vient d'être enregistrée` });
     return true;
   } catch (error) {
@@ -415,50 +416,55 @@ export async function fromArtistYouFollow(email: string, limit: number = 30) {
     return false;
   }
 }
-
 export async function yourArtist(email: string, limit: number = 30) {
   try {
-    // 1. Récupérer les artistes likés (uniques) en prenant pour chaque artiste la musique la plus récente
     const likedSql = `
-      SELECT m.song_id, m.auteur, m.title, m.album, m.genre, m.dure, m.date, m.BPM, m.cover, m.rank
+      SELECT m.song_id, m.artist_id, m.auteur, m.title, m.album, m.genre, m.dure, m.date, m.BPM, m.cover, m.rank,
+        (
+          SELECT COUNT(*) FROM listen_history lh2
+          JOIN musics m2 ON lh2.music_id = m2.song_id
+          WHERE lh2.email = ? AND m2.auteur = m.auteur
+        ) AS listen_count
       FROM musics m
       JOIN liked_song ls ON ls.song_id = m.song_id
       WHERE ls.email = ? AND ls.liked = TRUE
       AND m.date = (
         SELECT MAX(m2.date) FROM musics m2 WHERE m2.auteur = m.auteur
       )
-      ORDER BY m.date DESC
+      GROUP BY m.auteur
+      ORDER BY listen_count DESC, m.date DESC
       LIMIT ?
     `;
-    const [likedArtists]: any = await pool.execute(likedSql, [email, limit]);
+    const [likedArtists]: any = await pool.execute(likedSql, [email, email, limit]);
 
     let result = likedArtists;
-
-    // 2. Si le nombre d'artistes likés est insuffisant, compléter avec les derniers titres écoutés (en évitant les artistes déjà présents)
     if (result.length < limit) {
       const remaining = limit - result.length;
       const usedArtists = result.map((r: any) => r.auteur);
 
       let additionalSql = `
-        SELECT DISTINCT m.auteur, m.song_id, m.title, m.album, m.genre, m.dure, m.date, m.BPM, m.cover, m.rank
+        SELECT m.artist_id, m.auteur, m.song_id, m.title, m.album, m.genre, m.dure, m.date, m.BPM, m.cover, m.rank,
+          COUNT(*) AS listen_count
         FROM listen_history lh
         JOIN musics m ON lh.music_id = m.song_id
         WHERE lh.email = ?
       `;
+      const params: any[] = [email];
       if (usedArtists.length > 0) {
         additionalSql += ` AND m.auteur NOT IN (${usedArtists.map(() => '?').join(',')})`;
+        params.push(...usedArtists);
       }
       additionalSql += `
-        ORDER BY lh.id DESC
+        GROUP BY m.auteur
+        ORDER BY listen_count DESC, MAX(lh.id) DESC
         LIMIT ?
       `;
-      
-      const additionalParams = [email, ...usedArtists, remaining];
-      const [additionalArtists]: any = await pool.execute(additionalSql, additionalParams);
+      params.push(remaining);
+
+      const [additionalArtists]: any = await pool.execute(additionalSql, params);
       result.push(...additionalArtists);
     }
 
-    // Supprimer les doublons d'auteurs dans le résultat final
     const uniqueResult = [];
     const seen = new Set();
     for (const row of result) {
@@ -468,7 +474,7 @@ export async function yourArtist(email: string, limit: number = 30) {
       }
     }
 
-    return uniqueResult;
+    return uniqueResult.slice(0, limit);
   } catch (error) {
     logger.log({ level: 'error', message: `Erreur lors de la récupération des artistes likés et des musiques écoutées : ${(error as any).message}` });
     return false;
@@ -509,6 +515,22 @@ export async function getMusicsByAuthor(auteur: string) {
     return result;
   } catch (error) {
     logger.log({ level: 'error', message: `Erreur lors de la récupération des musiques de l'auteur : ${(error as any).message}` });
+    return false;
+  }
+}
+
+export async function getLikedSongsByUser(email: string) {
+  try {
+    const sql = `
+      SELECT m.*
+      FROM liked_song ls
+      JOIN musics m ON ls.song_id = m.song_id
+      WHERE ls.email = ? AND ls.liked = TRUE
+    `;
+    const [result]: any = await pool.execute(sql, [email]);
+    return result;
+  } catch (error) {
+    logger.log({ level: 'error', message: `Erreur lors de la récupération des musiques likées : ${(error as any).message}` });
     return false;
   }
 }

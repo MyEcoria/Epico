@@ -57,11 +57,10 @@ export async function add_music(api: any, song_id: any) {
             const {data} = await axios.get(trackData.trackUrl, {responseType: 'arraybuffer'});
             const outFile = trackData.isEncrypted ? api.decryptDownload(data, track.SNG_ID) : data;
             const trackWithMetadata = await api.addTrackTags(outFile, track, 500);
-            
-            // Create music 
+             
             const new_uid = uuidv4();
             await uploadFile(new_uid, trackWithMetadata);
-            await createMusic(track.SNG_ID, track.SNG_TITLE, track.ART_NAME, track.ALB_TITLE, "", track.DURATION, isrcToTimestamp(track.ISRC).toString(), new_uid, getCoverUrl(track.ALB_PICTURE, 'medium'), track.RANK);
+            await createMusic(track.SNG_ID, track.SNG_TITLE, track.ART_NAME, track.ART_ID, track.ALB_TITLE, "", track.DURATION, isrcToTimestamp(track.ISRC).toString(), new_uid, getCoverUrl(track.ALB_PICTURE, 'medium'), track.RANK);
             
             try {
                 const btm = await analyseBpm(trackWithMetadata);
