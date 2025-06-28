@@ -304,6 +304,11 @@ router.get('/album_track/:id', musicIdMiddleware, async (req, res) => {
             res.status(404).json({ status: 'error', message: 'Tracks not found' });
             return;
         }
+        if (tracks && Array.isArray(tracks.data)) {
+            tracks.data.forEach((track: any) => {
+                track.song = `${process.env.APP_URL}/music/${track.SNG_ID}.mp3`;
+            });
+        }
         res.json(tracks);
     } catch (err) {
         res.status(500).json({ status: 'error', message: 'Unable to fetch tracks' });
