@@ -4,12 +4,15 @@
 ** File description:
 ** Middleware to confirm music ID format
 */
-export default async (req: any, res: any, next: any) => {
+import { Request, Response, NextFunction } from 'express';
+
+export default async (req: Request, res: Response, next: NextFunction) => {
     if (!req.params.id) {
         res.status(400).json({ status: "error", message: "Missing id" });
         return;
     }
-    if (!(req.params.id > 0)) {
+    const id = parseInt(req.params.id);
+    if (isNaN(id) || id <= 0) {
         res.status(400).json({ status: "error", message: "Invalid id #02" });
         return;
     }

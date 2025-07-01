@@ -1,9 +1,4 @@
-/*
-** EPITECH PROJECT, 2025
-** musics.ts
-** File description:
-** Music routes for handling music-related operations
-*/
+
 import express from 'express';
 import { getMusic, get_cookie, add_listen_history, getLastFiveListenedSongs, getHistoryByToken, getTopRecentSongs, getFlowTrain, getSongsByBPMRange, createModifyOrCreateLikedSong, isLikeSong, fromArtistYouFollow, yourArtist, countLikedSongs, countFollowArtists, getMusicsByAuthor, getLikedSongsByUser } from '../modules/db';
 import { search_and_download, getCoverUrl } from '../modules/deezer';
@@ -349,6 +344,62 @@ router.get('/liked', async (req, res) => {
         }
     } else {
         res.status(401).json({status: "error", message: "Unauthorized"});
+    }
+});
+
+router.get('/similar/:id', musicIdMiddleware, async (req, res) => {
+    try {
+        const { id } = req.params;
+        const currentMusic = await getMusic(id);
+
+        if (!currentMusic) {
+            res.status(404).json({ status: 'error', message: 'Music not found' });
+            return;
+        }
+
+        const { auteur, BPM } = currentMusic;
+
+        let similarMusic = await getMusicsByAuthor(auteur);
+
+        similarMusic = similarMusic.filter((music: any) => music.song_id !== id);
+        similarMusic = similarMusic.sort(() => Math.random() - 0.5);
+
+        if (similarMusic.length > 0) {
+            const randomArtistSong = similarMusic[0];
+            randomArtistSong.song = `${process.env.APP_URL}/music/${randomArtistSong.song_id}.mp3`;
+            res.json(randomArtistSong);
+            return;
+        }
+
+        if (BPM) {
+            const minBPM = BPM - 10 > 0 ? BPM - 10 : 0;
+            const maxBPM = BPM + 10;
+            let bpmSimilarMusic = await getSongsByBPMRange(minBPM, maxBPM);
+
+            bpmSimilarMusic = bpmSimilarMusic.filter((music: any) => music.song_id !== id);
+            bpmSimilarMusic = bpmSimilarMusic.sort(() => Math.random() - 0.5);
+
+            if (bpmSimilarMusic.length > 0) {
+                const randomBPMSong = bpmSimilarMusic[0];
+                randomBPMSong.song = `${process.env.APP_URL}/music/${randomBPMSong.song_id}.mp3`;
+                res.json(randomBPMSong);
+                return;
+            }
+        }
+
+        const randomSongs = await getTopRecentSongs(10);
+        if (randomSongs && randomSongs.length > 0) {
+            const shuffled = randomSongs.sort(() => Math.random() - 0.5);
+            shuffled[0].song = `${process.env.APP_URL}/music/${shuffled[0].song_id}.mp3`;
+            res.json(shuffled[0]);
+            return;
+        }
+
+        res.status(404).json({ status: 'error', message: 'No similar music found' });
+
+    } catch (err) {
+        console.error('Error in /similar/:id route:', err);
+        res.status(500).json({ status: 'error', message: 'Unable to fetch similar music' });
     }
 });
 
